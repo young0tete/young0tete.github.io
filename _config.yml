@@ -20,8 +20,7 @@
 
 title: Welcome to young0tete`s place
 email: young0tete@gmail.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Themed by ejjoo
+description: # this means to ignore newlines until "baseurl:"
 # baseurl: "/" # the subpath of your site, e.g. /blog
 url: "http://https://young0tete.github.io/.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username: young0tete
