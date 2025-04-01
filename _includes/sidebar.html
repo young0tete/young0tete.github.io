@@ -32,6 +32,7 @@
 	</ul>
 </div>
 
+<!--
 <div class="sidebar-item sidebar-nav">
   	<ul class="nav">
 			<li class="nav-title">Categories</li>
@@ -46,7 +47,202 @@
 	  </nav>
 	</ul>
 </div>
+-->
+
+<!--Category 1: Paper Review-->
+<div class="sidebar-item sidebar-nav">
+	<ul class="nav">
+	  <li class="nav-title">
+		<a href="{{ root_url }}/{{ site.category_dir }}#CS" style="color: white;">Paper Reveiws</a>
+	  </li>  
+  
+	  {% for category in site.data.categories %}
+		{% if category.name == "Paper Reveiws" %}	
+		  <li>
+			<!-- subcategories -->
+			{% if category.subcategories %}
+			  <ul class="subcategories">
+				{% for subcategory in category.subcategories %}
+				  <li>
+					<a class="nav-item" href="{{ root_url }}/{{ site.category_dir }}#{{ subcategory.name }}">
+					  <span class="name">{{ subcategory.name }}</span>
+					  <span class="badge">
+						{% assign subcategory_posts = site.categories[subcategory.name] %}
+						{{ subcategory_posts | size }}
+					  </span>
+					</a>
+				  </li>
+				{% endfor %}
+			  </ul>
+			{% endif %}
+		  </li>
+		{% endif %}
+	  {% endfor %}
+	</ul>
+  </div>
+  
+  
+<!--Category 2: CS-->
+<div class="sidebar-item sidebar-nav">
+	<ul class="nav">
+	  <li class="nav-title">
+		<a href="{{ root_url }}/{{ site.category_dir }}#CS" style="color: white;">CS</a>
+	  </li>  
+  
+	  {% for category in site.data.categories %}
+		{% if category.name == "CS" %}	
+		  <li>
+			<!-- subcategories -->
+			{% if category.subcategories %}
+			  <ul class="subcategories">
+				{% for subcategory in category.subcategories %}
+				  <li>
+					<a class="nav-item" href="{{ root_url }}/{{ site.category_dir }}#{{ subcategory.name }}">
+					  <span class="name">{{ subcategory.name }}</span>
+					  <span class="badge">
+						{% assign subcategory_posts = site.categories[subcategory.name] %}
+						{{ subcategory_posts | size }}
+					  </span>
+					</a>
+				  </li>
+				{% endfor %}
+			  </ul>
+			{% endif %}
+		  </li>
+		{% endif %}
+	  {% endfor %}
+	</ul>
+  </div>
+
+<!--Category 3: Machine Learning-->
+<div class="sidebar-item sidebar-nav">
+	<ul class="nav">
+	  <li class="nav-title">
+		<a href="{{ root_url }}/{{ site.category_dir }}#CS" style="color: white;">Machine Learning</a>
+	  </li>  
+  
+	  {% for category in site.data.categories %}
+		{% if category.name == "Machine Learning" %}	
+		  <li>
+			<!-- subcategories -->
+			{% if category.subcategories %}
+			  <ul class="subcategories">
+				{% for subcategory in category.subcategories %}
+				  <li>
+					<a class="nav-item" href="{{ root_url }}/{{ site.category_dir }}#{{ subcategory.name }}">
+					  <span class="name">{{ subcategory.name }}</span>
+					  <span class="badge">
+						{% assign subcategory_posts = site.categories[subcategory.name] %}
+						{{ subcategory_posts | size }}
+					  </span>
+					</a>
+				  </li>
+				{% endfor %}
+			  </ul>
+			{% endif %}
+		  </li>
+		{% endif %}
+	  {% endfor %}
+	</ul>
+</div>
+
+<!--Category 4: Mathematics-->
+<div class="sidebar-item sidebar-nav">
+	<ul class="nav">
+	  <li class="nav-title">
+		<a href="{{ root_url }}/{{ site.category_dir }}#CS" style="color: white;">Mathematics</a>
+	  </li>  
+  
+	  {% for category in site.data.categories %}
+		{% if category.name == "Mathematics" %}	
+		  <li>
+			<!-- subcategories -->
+			{% if category.subcategories %}
+			  <ul class="subcategories">
+				{% for subcategory in category.subcategories %}
+				  <li>
+					<a class="nav-item" href="{{ root_url }}/{{ site.category_dir }}#{{ subcategory.name }}">
+					  <span class="name">{{ subcategory.name }}</span>
+					  <span class="badge">
+						{% assign subcategory_posts = site.categories[subcategory.name] %}
+						{{ subcategory_posts | size }}
+					  </span>
+					</a>
+				  </li>
+				{% endfor %}
+			  </ul>
+			{% endif %}
+		  </li>
+		{% endif %}
+	  {% endfor %}
+	</ul>
+</div>
+  
+<!--Category 5: Programming-->
+<div class="sidebar-item sidebar-nav">
+	<ul class="nav">
+	  <li class="nav-title">
+		<a href="{{ root_url }}/{{ site.category_dir }}#CS" style="color: white;">Programming</a>
+	  </li>  
+  
+	  {% for category in site.data.categories %}
+		{% if category.name == "Programming" %}	
+		  <li>
+			<!-- subcategories -->
+			{% if category.subcategories %}
+			  <ul class="subcategories">
+				{% for subcategory in category.subcategories %}
+				  <li>
+					<a class="nav-item" href="{{ root_url }}/{{ site.category_dir }}#{{ subcategory.name }}">
+					  <span class="name">{{ subcategory.name }}</span>
+					  <span class="badge">
+						{% assign subcategory_posts = site.categories[subcategory.name] %}
+						{{ subcategory_posts | size }}
+					  </span>
+					</a>
+				  </li>
+				{% endfor %}
+			  </ul>
+			{% endif %}
+		  </li>
+		{% endif %}
+	  {% endfor %}
+	</ul>
+</div>
+
+<!--Category 6: Life-->
+<div class="sidebar-item sidebar-nav">
+	<ul class="nav">
+	  <li class="nav-title">
+		<a href="{{ root_url }}/{{ site.category_dir }}#CS" style="color: white;">Life</a>
+	  </li>  
+  
+	  {% for category in site.data.categories %}
+		{% if category.name == "Life" %}	
+		  <li>
+			<!-- subcategories -->
+			{% if category.subcategories %}
+			  <ul class="subcategories">
+				{% for subcategory in category.subcategories %}
+				  <li>
+					<a class="nav-item" href="{{ root_url }}/{{ site.category_dir }}#{{ subcategory.name }}">
+					  <span class="name">{{ subcategory.name }}</span>
+					  <span class="badge">
+						{% assign subcategory_posts = site.categories[subcategory.name] %}
+						{{ subcategory_posts | size }}
+					  </span>
+					</a>
+				  </li>
+				{% endfor %}
+			  </ul>
+			{% endif %}
+		  </li>
+		{% endif %}
+	  {% endfor %}
+	</ul>
+</div>
 
 <div class="sidebar-item sidebar-footer">
-	<p>Powered by <a href="https://github.com/jekyll/jekyll">Jekyll</a></p>
+	<p><a href="https://github.com/young0tete">Github</a> | <a href="https://www.notion.so/Han-Young-tae-s-Portfolio-1ad8c40eec198014b106e9d084833305">Portfolio</a> | 
+		<a href="https://www.linkedin.com/in/youngtae-han-2a8355270/">Linkedin</a> </p>
 </div>

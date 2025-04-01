@@ -1,0 +1,33 @@
+- name: Paper Reveiws
+  subcategories:
+    - name: Basics
+    - name: 3D-GS
+- name: CS
+  subcategories:
+    - name: Data Structure / Algorithm
+    - name: System / SP / OS
+    - name: Computer Graphics
+    - name: Computer Network
+    # - name: Computer Architecture
+    # - name: Database
+- name: Machine Learning
+  subcategories:
+    - name: ML
+    - name: DL
+    - name: CV
+    - name: NLP
+- name: Mathematics
+  subcategories:
+    - name: Calculus
+    - name: Linear Algebra
+- name: Programming
+  subcategories:
+    - name: Python
+    - name: C/C++
+    - name: CUDA
+    # - name: Linux Shell
+    - name: PS (BOJ)
+- name: Life
+  subcategories:
+    - name: Weekly Diary
+    - name: Others
