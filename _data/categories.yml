@@ -16,6 +16,7 @@
     - name: DL
     - name: CV
     - name: NLP
+    - name: RS
 - name: Mathematics
   subcategories:
     - name: Calculus
@@ -30,4 +31,5 @@
 - name: Life
   subcategories:
     - name: Weekly Diary
+    - name: Trip
     - name: Others
