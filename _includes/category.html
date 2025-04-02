@@ -27,6 +27,7 @@
 	function removeCategory() {
 		if (window.location.hash) {
 			let hash = window.location.hash.substring(1);
+			hash = decodeURIComponent(hash); //url 인코딩 공백(%20) -> 실제 공백으로
 			$('#category-name').text(hash.substring(0, 1).toUpperCase() + hash.substring(1));
 			let category_class = '.post-category-' + hash;
 			let items = $('.post-list-item').each((i, e) => {
