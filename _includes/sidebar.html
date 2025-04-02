@@ -1,7 +1,18 @@
 <div class="sidebar-item sidebar-header">
+	<!--
 	<div class='sidebar-brand'>
 		<a href="/home/">{{ site.title }}</a>
 	</div>
+	-->
+	<div style="text-align: center;" >
+		<a href="/home/"><img src="../public/img/profie_image.jpg" alt="profile image" width="220" height="220" style="border-radius: 50%;"></a>
+		<h3><a style="color: white;" href="/home/">young0tete</a></h3>
+		<p style="font-size: 80%;">
+			<a style="color: white;" href="https://github.com/young0tete">Github</a> | 
+			<a style="color: white;" href="https://www.notion.so/Han-Young-tae-s-Portfolio-1ad8c40eec198014b106e9d084833305">Portfolio</a> | 
+			<a style="color: white;" href="https://www.linkedin.com/in/youngtae-han-2a8355270/">Linkedin</a> </p>
+	</div>
+
 <!-- 	<p class="lead">{{ site.description }}</p> -->
 	{%- if social.github -%}
 		<a rel="me" href="https://github.com/{{ social.github | cgi_escape | escape }}" title="{{ social.github | escape }}">
