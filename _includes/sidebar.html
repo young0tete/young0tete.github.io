@@ -221,7 +221,39 @@
 	</ul>
 </div>
 
-<!--Category 6: Life-->
+<!--Category 6: Development-->
+<div class="sidebar-item sidebar-nav">
+	<ul class="nav">
+	  <li class="nav-title">
+		<a href="{{ root_url }}/{{ site.category_dir }}#CS" style="color: white;">Development</a>
+	  </li>  
+  
+	  {% for category in site.data.categories %}
+		{% if category.name == "Development" %}	
+		  <li>
+			<!-- subcategories -->
+			{% if category.subcategories %}
+			  <ul class="subcategories">
+				{% for subcategory in category.subcategories %}
+				  <li>
+					<a class="nav-item" href="{{ root_url }}/{{ site.category_dir }}#{{ subcategory.name }}">
+					  <span class="name">{{ subcategory.name }}</span>
+					  <span class="badge">
+						{% assign subcategory_posts = site.categories[subcategory.name] %}
+						{{ subcategory_posts | size }}
+					  </span>
+					</a>
+				  </li>
+				{% endfor %}
+			  </ul>
+			{% endif %}
+		  </li>
+		{% endif %}
+	  {% endfor %}
+	</ul>
+</div>
+
+<!--Category 7: Life-->
 <div class="sidebar-item sidebar-nav">
 	<ul class="nav">
 	  <li class="nav-title">

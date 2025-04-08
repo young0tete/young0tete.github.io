@@ -2,6 +2,7 @@
   subcategories:
     - name: Basics
     - name: 3D-GS
+    - name: LLM
 - name: CS
   subcategories:
     - name: Data Structure / Algorithm
@@ -28,6 +29,9 @@
     - name: CUDA
     # - name: Linux Shell
     - name: PS (BOJ)
+- name: Development
+  subcategories:
+    - name: docker
 - name: Life
   subcategories:
     - name: Weekly Diary
