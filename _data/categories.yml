@@ -3,6 +3,7 @@
     - name: Basics
     - name: 3D-GS
     - name: LLM
+    - name: Others
 - name: CS
   subcategories:
     - name: Data Structure / Algorithm
