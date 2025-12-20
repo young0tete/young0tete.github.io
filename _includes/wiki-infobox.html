@@ -1,0 +1,29 @@
+<div class="wiki-infobox">
+  {% if include.title %}
+  <div class="wiki-infobox-title">{{ include.title }}</div>
+  {% endif %}
+  
+  {% if include.image %}
+  <div class="wiki-infobox-image">
+    <img src="{{ include.image }}" alt="{{ include.title }}">
+  </div>
+  {% endif %}
+
+  <table class="wiki-infobox-data">
+    <tbody>
+      {% if include.label1 and include.data1 %}
+      <tr>
+        <th>{{ include.label1 }}</th>
+        <td>{{ include.data1 }}</td>
+      </tr>
+      {% endif %}
+      
+      {% if include.label2 and include.data2 %}
+      <tr>
+        <th>{{ include.label2 }}</th>
+        <td>{{ include.data2 }}</td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
