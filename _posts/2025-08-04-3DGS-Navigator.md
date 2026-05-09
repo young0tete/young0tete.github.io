@@ -13,12 +13,7 @@ mermaid: true
 #   lqip: data:image/webp;base64,UklGRpoAAABXRUJQVlA4WAoAAAAQAAAADwAABwAAQUxQSDIAAAARL0AmbZurmr57yyIiqE8oiG0bejIYEQTgqiDA9vqnsUSI6H+oAERp2HZ65qP/VIAWAFZQOCBCAAAA8AEAnQEqEAAIAAVAfCWkAALp8sF8rgRgAP7o9FDvMCkMde9PK7euH5M1m6VWoDXf2FkP3BqV0ZYbO6NA/VFIAAAA
 #   alt: Responsive rendering of Chirpy theme on multiple devices. #caption
 ---
-<!-- 
-{% include wiki-infobox.html 
-    title="지킬(Jekyll)" 
-    label1="개발 언어" data1="Ruby"
-    label2="용도" data2="정적 사이트 생성기" 
-%} -->
+{% include navbox.html id="3dgs" %}
 
 ## 0. Foundation Model
 {: style="background-color:#ffeaa7; color:#000000; padding:4px 8px; border-radius:6px;" }

@@ -1,0 +1,34 @@
+title: "3DGS Navigator"
+link: "/posts/3DGS-Navigator/"
+color: "#7851A9"
+groups:
+  - name: "Foundation"
+    items:
+      - text: "3DGS"
+        url: "/posts/3DGS/"
+
+  - name: "Dynamic Scene"
+    items:
+      - text: "D3DGS"
+      - text: "4DGS"
+      - text: "Spacetime Gaussian"
+      - text: "Taylor Gaussian"
+      - text: "3DGStream"
+      - text: "Instant Gaussian Stream"
+      - text: "4DGC"
+
+  - name: "Feed-Forward"
+    items:
+      - text: "pixelSplat"
+      - text: "MVSplat"
+      - text: "DepthSplat"
+      - text: "GS-LRM"
+      - text: "Long-LRM"
+      - text: "LVT"
+      - text: "GPS-Gaussian"
+
+  - name: "Scene Editing"
+    items: []
+
+  - name: "Avatar"
+    items: []

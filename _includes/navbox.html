@@ -1,0 +1,105 @@
+{% assign navbox = site.data.navboxes[include.id] %}
+{% if navbox %}
+<style>
+  .navbox {
+    border: 1px solid var(--tb-border-color);
+    background-color: var(--card-bg);
+    font-size: 0.85em;
+    margin: 1.5em 0;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .navbox summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 6px 12px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+  }
+  .navbox summary::-webkit-details-marker { display: none; }
+  .navbox summary .navbox-toggle { font-size: 0.8em; opacity: 0.7; }
+  .navbox details[open] summary .navbox-toggle::before { content: "▲"; }
+  .navbox details:not([open]) summary .navbox-toggle::before { content: "▼"; }
+  .navbox summary a {
+    color: inherit;
+    text-decoration: none;
+    flex: 1;
+  }
+  .navbox summary a:hover { text-decoration: underline; }
+  .navbox-body {
+    border-top: 1px solid var(--tb-border-color);
+  }
+  .navbox-row {
+    display: flex;
+    border-bottom: 1px solid var(--tb-border-color);
+  }
+  .navbox-row:last-child { border-bottom: none; }
+  .navbox-group {
+    flex-shrink: 0;
+    width: 110px;
+    padding: 5px 10px;
+    font-weight: bold;
+    background-color: var(--tb-odd-bg);
+    border-right: 1px solid var(--tb-border-color);
+    display: flex;
+    align-items: center;
+    color: var(--label-color);
+  }
+  .navbox-items {
+    padding: 5px 10px;
+    color: var(--text-color);
+    line-height: 1.8;
+    flex: 1;
+  }
+  .navbox-items a {
+    color: var(--link-color);
+    text-decoration: none;
+  }
+  .navbox-items a:hover { text-decoration: underline; }
+  .navbox-items .navbox-sep {
+    margin: 0 4px;
+    opacity: 0.4;
+  }
+  .navbox-empty {
+    opacity: 0.45;
+    font-style: italic;
+  }
+</style>
+
+<div class="navbox">
+  <details open>
+    <summary style="background-color: {{ navbox.color | default: '#e8e8e8' }}; color: #000;">
+      {% if navbox.link %}
+        <a href="{{ navbox.link }}">{{ navbox.title }}</a>
+      {% else %}
+        {{ navbox.title }}
+      {% endif %}
+      <span class="navbox-toggle"></span>
+    </summary>
+    <div class="navbox-body">
+      {% for group in navbox.groups %}
+      <div class="navbox-row">
+        <div class="navbox-group">{{ group.name }}</div>
+        <div class="navbox-items">
+          {% if group.items and group.items.size > 0 %}
+            {% for item in group.items %}
+              {% unless forloop.first %}<span class="navbox-sep">·</span>{% endunless %}
+              {% if item.url %}
+                <a href="{{ item.url }}">{{ item.text }}</a>
+              {% else %}
+                {{ item.text }}
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            <span class="navbox-empty">coming soon</span>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </details>
+</div>
+{% endif %}
