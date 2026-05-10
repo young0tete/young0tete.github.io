@@ -1,0 +1,74 @@
+---
+layout: project-page
+title: "DSD-GS: Your Paper Title Here"
+permalink: /dsd-gs/
+---
+
+<div class="project-header">
+  <div class="container">
+    <span class="project-venue">arXiv Preprint</span>
+    <h1 class="project-title">DSD-GS: <span class="hl">D</span>ynamic-<span class="hl">S</span>tatic <span class="hl">D</span>ecomposition of Gaussian Splatting for Efficient and High-Fidelity Dynamic Scene Reconstruction</h1>
+
+    <div class="authors">
+      Youngtae Han, Sung-hwan Han, Youngmin Yi
+    </div>
+    <div class="affiliations">
+      Department of Artificial Intelligence Engineering, Sogang University
+    </div>
+
+    <div class="project-links">
+      <a href="#"><i class="fas fa-file-pdf"></i> Paper (TBA)</a>
+      <a href="#"><i class="fab fa-github"></i> Code (TBA)</a>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="tldr">
+    <span class="tldr-label">TL;DR</span>
+    We propose DSD-GS, a COLMAP-free dynamic reconstruction framework that achieves SOTA image quality with 10-minute training time and 700+ FPS rendering via a dynamic-static decomposition strategy.
+  </div>
+
+  <div class="figure-row">
+    <figure class="figure">
+      <img src="/assets/images/project_page/dsd-gs/figure_overview_left.png" alt="Results Left">
+    </figure>
+    <figure class="figure">
+      <img src="/assets/images/project_page/dsd-gs/figure_overview_right.png" alt="Results Right">
+    </figure>
+  </div>
+
+  <!-- Abstract -->
+  <section>
+    <h2>Abstract</h2>
+    <div class="abstract-text">
+      {% capture abstract %}{% include_relative abstract.md %}{% endcapture %}
+      {{ abstract | markdownify }}
+    </div>
+  </section>
+
+  <!-- Method -->
+  <section>
+    <h2>Method</h2>
+    <p>
+      Brief description of the proposed method. Explain the key components and how they work together.
+    </p>
+    <figure class="figure">
+      <img src="/assets/images/project_page/dsd-gs/dsd-gs_method_overview.png" alt="Method Overview">
+    </figure>
+  </section>
+
+  <!-- Results -->
+  <section>
+    <h2>Results</h2>
+    {% include_relative table_n3d.html %}
+  </section>
+
+  <!-- BibTeX -->
+  <section>
+    <h2>BibTeX</h2>
+    <div class="bibtex">TBA</div>
+  </section>
+
+</div>

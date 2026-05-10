@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: #1a1a1a;
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .hl { color: rgb(114, 224, 211); }
+
+    /* Header */
+    .project-header {
+      text-align: center;
+      padding: 3.5rem 1.5rem 2rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .project-venue {
+      display: inline-block;
+      background: rgb(114, 224, 211);
+      color: #111;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 0.25rem 0.9rem;
+      border-radius: 20px;
+      margin-bottom: 1.2rem;
+    }
+    .project-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 1.5rem;
+      color: #111;
+    }
+    .authors {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: #444;
+      font-weight: 500;
+    }
+    .affiliations {
+      font-size: 0.85rem;
+      color: #777;
+      margin-bottom: 1.8rem;
+    }
+
+    /* Link buttons */
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+    .project-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 1.1rem;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: #333;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .project-links a:hover {
+      border-color: rgb(114, 224, 211);
+      color: rgb(114, 224, 211);
+      background: #f5f3ff;
+    }
+
+    /* Teaser */
+    .teaser {
+      margin: 2.5rem auto;
+      text-align: center;
+    }
+    .teaser img, .teaser video {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+    }
+    .teaser figcaption {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    /* Sections */
+    section {
+      padding: 2.5rem 0;
+      border-top: 1px solid #f0f0f0;
+    }
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #111;
+    }
+    p { margin-bottom: 0.75rem; color: #333; }
+
+    /* TL;DR */
+    .tldr {
+      margin: 1.8rem 0 1rem;
+      padding: 0.9rem 1.2rem;
+      background: #f0f4ff;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: #333;
+      line-height: 1.6;
+    }
+    .tldr-label {
+      font-weight: 700;
+      color: rgb(80, 200, 185);
+      margin-right: 0.5rem;
+    }
+
+    /* Abstract */
+    .abstract-text {
+      background: #f9fafb;
+      border-left: 3px solid rgb(114, 224, 211);
+      padding: 1.2rem 1.5rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.97rem;
+    }
+
+    /* Method / Results images */
+    .figure {
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+    .figure img {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+    .figure figcaption {
+      margin-top: 0.6rem;
+      font-size: 0.83rem;
+      color: #777;
+    }
+
+    /* Side-by-side figures */
+    .figure-row {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .figure-row .figure:first-child {
+      flex: 47;
+      margin: 0;
+    }
+    .figure-row .figure:last-child {
+      flex: 53;
+      margin: 0;
+    }
+
+    /* Results table — booktabs style */
+    .table-wrapper { margin: 1.5rem 0; }
+    .table-caption {
+      font-size: 0.83rem;
+      color: #555;
+      margin-bottom: 0.75rem;
+      line-height: 1.5;
+    }
+    .table-scroll { overflow-x: auto; }
+    .results-table {
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      white-space: nowrap;
+      width: 100%;
+    }
+    .results-table th, .results-table td {
+      padding: 0.4rem 0.8rem;
+      text-align: center;
+      border: none;
+    }
+    .results-table thead tr th {
+      border-top: 2px solid #333;
+      border-bottom: 1.5px solid #888;
+      font-weight: 700;
+    }
+    .results-table tbody tr:last-child td {
+      border-bottom: 2px solid #333;
+    }
+    .results-table tbody tr:hover td { background-color: #fafafa; }
+    .results-table tbody tr:hover td.c1 { background: #f68582; }
+    .results-table tbody tr:hover td.c2 { background: #f4b183; }
+    .results-table tbody tr:hover td.c3 { background: #ffe699; }
+    .results-table td.method-name { text-align: left; font-weight: 500; }
+    .results-table th.th-left { text-align: left; }
+    .results-table tr.ours-row td { border-top: 1.5px solid #888; }
+    .results-table .c1 { background: #f68582; }
+    .results-table .c2 { background: #f4b183; }
+    .results-table .c3 { background: #ffe699; }
+
+    /* BibTeX */
+    .bibtex {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.82rem;
+      padding: 1.2rem 1.5rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      white-space: pre;
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    .project-footer {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      border-top: 1px solid #f0f0f0;
+      font-size: 0.82rem;
+      color: #aaa;
+    }
+    .project-footer a { color: rgb(114, 224, 211); text-decoration: none; }
+
+    @media (max-width: 640px) {
+      .project-title { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+  {{ content }}
+
+  <footer class="project-footer">
+    <div class="container">
+      <p>Website template from <a href="{{ site.url }}">{{ site.title }}</a></p>
+    </div>
+  </footer>
+</body>
+</html>

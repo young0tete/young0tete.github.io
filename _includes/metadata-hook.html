@@ -1,0 +1,90 @@
+<style>
+  html[data-mode=dark],
+  html:not([data-mode]) {
+    --link-color: rgb(114, 224, 211) !important;
+    --toc-highlight: rgb(114, 224, 211) !important;
+    --checkbox-checked-color: rgb(114, 224, 211) !important;
+    --btn-share-hover-color: rgb(114, 224, 211) !important;
+  }
+  html[data-mode=light] {
+    --link-color: rgb(85, 195, 180) !important;
+    --toc-highlight: rgb(85, 195, 180) !important;
+    --checkbox-checked-color: rgb(85, 195, 180) !important;
+    --btn-share-hover-color: rgb(85, 195, 180) !important;
+  }
+  @media (prefers-color-scheme: light) {
+    html:not([data-mode]) {
+      --link-color: rgb(85, 195, 180) !important;
+      --toc-highlight: rgb(85, 195, 180) !important;
+    }
+  }
+
+  #sidebar .profile-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    text-align: center;
+  }
+
+  #sidebar #avatar {
+    margin: 0 auto;
+    width: 8rem !important;
+    height: 8rem !important;
+  }
+
+  @media (min-width: 576px) {
+    #sidebar #avatar {
+      width: 8.5rem !important;
+      height: 8.5rem !important;
+    }
+  }
+
+  #sidebar #avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  /* Sidebar bottom buttons */
+  .sidebar-bottom {
+    justify-content: flex-start !important;
+    gap: 0.25rem;
+  }
+
+  /* Sidebar sub-nav (categories, project pages) */
+  .sidebar-subnav {
+    width: 100%;
+    margin-bottom: 0.25rem;
+  }
+  .sidebar-subnav .nav {
+    padding-left: 0;
+    width: 100%;
+  }
+  .sidebar-sub-link {
+    font-size: 1em;
+    padding-top: 0.2rem !important;
+    padding-bottom: 0.2rem !important;
+    padding-left: 0rem !important;
+    padding-right: 0.5rem !important;
+    color: var(--sidebar-muted-color) !important;
+    white-space: nowrap;
+    width: 100%;
+    display: flex !important;
+    align-items: center;
+  }
+  .sidebar-sub-link:hover,
+  .sidebar-sub-link.active {
+    color: var(--sidebar-active-color) !important;
+  }
+  .sidebar-sub-count {
+    margin-left: auto;
+    font-size: 0.75em;
+    opacity: 0.6;
+    background: var(--sidebar-hover-bg);
+    border-radius: 10px;
+    padding: 0 6px;
+  }
+</style>
