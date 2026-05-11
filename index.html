@@ -4,6 +4,7 @@ layout: home
 ---
 
 <div class="home-profile">
+  <img src="/assets/images/main_page/ID_photo.jpg" alt="Profile" class="home-id-photo">
   <div class="home-profile-right">
     <h1 class="home-name">Youngtae Han <span class="home-name-kr">한영태</span></h1>
     <p class="home-affil">M.S. Student · Department of Artificial Intelligence Engineering, Sogang University</p>
@@ -17,7 +18,6 @@ layout: home
 
 <!-- Education -->
 <div class="cv-section education-section">
-  <img src="/assets/images/main_page/ID_photo.jpg" alt="Profile" class="home-id-photo">
   <div class="education-left">
     <div class="cv-section-title">Education</div>
     <div class="cv-entry">
@@ -175,26 +175,23 @@ layout: home
 
   /* Header */
   .home-profile {
-    display: flex;
+    display: flex !important;
     align-items: flex-start;
-    justify-content: space-between;
-    padding: 1.5rem 0 1.5rem;
+    padding: 1.5rem 0;
     border-bottom: 1px solid var(--main-border-color);
     margin-bottom: 0;
-    gap: 2rem;
+    gap: 1.5rem;
   }
   .home-profile-right { flex: 1; min-width: 0; }
   .home-id-photo {
-    float: right !important;
-    width: 180px !important;
-    height: 240px !important;
+    width: 120px !important;
+    height: 160px !important;
     object-fit: cover !important;
     object-position: center top !important;
     border-radius: 6px;
     border: 1px solid var(--main-border-color);
     display: block !important;
-    margin-left: 2rem;
-    margin-bottom: 1rem;
+    flex-shrink: 0;
   }
   .home-name {
     font-size: 2rem;
@@ -290,8 +287,8 @@ layout: home
     font-size: 0.9rem;
     color: var(--text-muted-color);
   }
-  .education-section { overflow: hidden; }
-  .education-left { overflow: hidden; }
+  .education-section { }
+  .education-left { }
 
   /* Research Interests */
   .interest-grid {
