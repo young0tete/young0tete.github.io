@@ -17,6 +17,7 @@ layout: home
 
 <!-- Education -->
 <div class="cv-section education-section">
+  <img src="/assets/images/main_page/ID_photo.jpg" alt="Profile" class="home-id-photo">
   <div class="education-left">
     <div class="cv-section-title">Education</div>
     <div class="cv-entry">
@@ -43,7 +44,6 @@ layout: home
       </div>
     </div>
   </div>
-  <img src="/assets/images/main_page/ID_photo.jpg" alt="Profile" class="home-id-photo">
 </div>
 
 <!-- Interests -->
@@ -185,15 +185,16 @@ layout: home
   }
   .home-profile-right { flex: 1; min-width: 0; }
   .home-id-photo {
+    float: right !important;
     width: 180px !important;
     height: 240px !important;
     object-fit: cover !important;
     object-position: center top !important;
     border-radius: 6px;
-    flex-shrink: 0;
     border: 1px solid var(--main-border-color);
     display: block !important;
-    margin-right: 2rem;
+    margin-left: 2rem;
+    margin-bottom: 1rem;
   }
   .home-name {
     font-size: 2rem;
@@ -289,12 +290,8 @@ layout: home
     font-size: 0.9rem;
     color: var(--text-muted-color);
   }
-  .education-section {
-    display: flex;
-    align-items: flex-start;
-    gap: 2rem;
-  }
-  .education-left { flex: 1; min-width: 0; }
+  .education-section { overflow: hidden; }
+  .education-left { overflow: hidden; }
 
   /* Research Interests */
   .interest-grid {
