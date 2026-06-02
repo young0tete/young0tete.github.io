@@ -69,49 +69,26 @@
     font-size: 1em;
     padding-top: 0.2rem !important;
     padding-bottom: 0.2rem !important;
+    padding-left: 0rem !important;
     padding-right: 0.5rem !important;
     color: var(--sidebar-muted-color) !important;
     white-space: nowrap;
     width: 100%;
     display: flex !important;
     align-items: center;
-    gap: 0;
   }
   .sidebar-sub-link:hover,
   .sidebar-sub-link.active {
     color: var(--sidebar-active-color) !important;
   }
-  .sidebar-sub2 { padding-left: 0; width: 100%; margin-bottom: 0.25rem !important; }
-  .sidebar-after-cats { margin-top: 0.8rem !important; }
-  .sidebar-cat-label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: var(--sidebar-muted-color);
-    padding: 0.5rem 1rem 0.2rem;
-    text-transform: uppercase;
-    text-decoration: none;
-    display: block;
-    transition: color 0.15s;
-  }
-  .sidebar-cat-label:hover { color: var(--link-color) !important; }
-  .sidebar-sub-link i { margin-right: 12px !important; }
-  .sidebar-sub2-link {
-    padding-left: 0.5rem !important;
-    font-size: 0.9em;
-  }
-
   .sidebar-sub-count {
-    font-size: 0.85em;
+    margin-left: auto;
+    font-size: 0.75em;
     opacity: 0.6;
     background: var(--sidebar-hover-bg);
     border-radius: 10px;
-    padding: 2px 8px;
+    padding: 0 6px;
   }
-  /* 카테고리 글씨~count 간격 */
-  .sidebar-sub-link:not(.sidebar-sub2-link) .sidebar-sub-count { margin-left: 14px; }
-  /* 서브카테고리 글씨~count 간격 */
-  .sidebar-sub2-link .sidebar-sub-count { margin-left: 8px; }
 </style>
 
 {% if page.layout == 'home' %}

@@ -28,60 +28,40 @@
       <!-- the real tabs -->
       {% for tab in site.tabs %}
         {% capture tab_url_check %}{{ tab.url }}{% endcapture %}
-
-        {% unless tab_url_check contains 'categories' %}
-          <li class="nav-item{% if tab.url == page.url %}{{ " active" }}{% endif %}"{% if tab_url_check contains 'tags' %} style="margin-top:0.8rem"{% endif %}>
-            <a href="{{ tab.url | relative_url }}" class="nav-link">
-              <i class="fa-fw {{ tab.icon }}"></i>
-              {% capture tab_name %}{{ tab.url | split: '/' }}{% endcapture %}
-              <span>{{ site.data.locales[include.lang].tabs.[tab_name] | default: tab.title | upcase }}</span>
-            </a>
-          </li>
-        {% endunless %}
+        <li class="nav-item{% if tab.url == page.url %}{{ " active" }}{% endif %}">
+          <a href="{{ tab.url | relative_url }}" class="nav-link">
+            <i class="fa-fw {{ tab.icon }}"></i>
+            {% capture tab_name %}{{ tab.url | split: '/' }}{% endcapture %}
+            <span>{{ site.data.locales[include.lang].tabs.[tab_name] | default: tab.title | upcase }}</span>
+          </a>
+        </li>
 
         {% if tab_url_check contains 'categories' %}
-          <li class="nav-item">
-            <a href="{{ '/categories/' | relative_url }}" class="sidebar-cat-label">Categories</a>
+          <li class="nav-item sidebar-subnav">
+            <ul class="nav flex-column">
+              {% assign top_cats = "" | split: "" %}
+              {% for post in site.posts %}
+                {% if post.categories.size > 0 %}
+                  {% assign first_cat = post.categories | first %}
+                  {% unless top_cats contains first_cat %}
+                    {% assign top_cats = top_cats | push: first_cat %}
+                  {% endunless %}
+                {% endif %}
+              {% endfor %}
+              {% assign sorted_categories = top_cats | sort %}
+              {% for category in sorted_categories %}
+                <li class="nav-item">
+                  {% assign cat_slug = category | slugify %}
+                  <a href="{{ '/categories/' | append: cat_slug | relative_url }}"
+                     class="nav-link sidebar-sub-link{% if page.categories contains category %} active{% endif %}">
+                    <i class="fa-fw fas fa-folder"></i>
+                    <span>{{ category }}</span>
+                    <span class="sidebar-sub-count">{{ site.categories[category].size }}</span>
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
           </li>
-          {% for cat_entry in site.data.category_order %}
-            {% assign category = cat_entry.name %}
-            {% assign cat_slug = category | slugify %}
-
-            {% assign sub_cats = "" | split: "" %}
-            {% for post in site.posts %}
-              {% if post.categories[0] == category and post.categories[1] %}
-                {% unless sub_cats contains post.categories[1] %}
-                  {% assign sub_cats = sub_cats | push: post.categories[1] %}
-                {% endunless %}
-              {% endif %}
-            {% endfor %}
-            {% assign sub_cats = sub_cats | sort %}
-
-            <li class="nav-item">
-              <a href="{{ '/categories/' | append: cat_slug | relative_url }}"
-                 class="nav-link sidebar-sub-link{% if page.categories contains category %} active{% endif %}">
-                <i class="fa-fw fas fa-folder-open"></i>
-                <span>{{ category }}</span>
-                <span class="sidebar-sub-count">{{ site.categories[category].size }}</span>
-              </a>
-              {% if sub_cats.size > 0 %}
-                <ul class="nav flex-column sidebar-sub2">
-                  {% for sub in sub_cats %}
-                    {% assign sub_slug = sub | slugify %}
-                    <li class="nav-item">
-                      <a href="{{ '/categories/' | append: sub_slug | relative_url }}"
-                         class="nav-link sidebar-sub-link sidebar-sub2-link{% if page.categories contains sub %} active{% endif %}">
-                        <i class="fa-fw fas fa-folder"></i>
-                        <span>{{ sub }}</span>
-                        <span class="sidebar-sub-count">{{ site.categories[sub].size }}</span>
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              {% endif %}
-            </li>
-          {% endfor %}
-          <div style="height:0.8rem;width:100%;flex-shrink:0;"></div>
         {% endif %}
 
         {% if tab_url_check contains 'project_pages' %}
@@ -92,7 +72,7 @@
                 {% for proj in project_pages %}
                   <li class="nav-item">
                     <a href="{{ proj.permalink | relative_url }}"
-                       class="nav-link sidebar-sub-link sidebar-sub2-link{% if page.url == proj.permalink %} active{% endif %}">
+                       class="nav-link sidebar-sub-link{% if page.url == proj.permalink %} active{% endif %}">
                       <i class="fa-fw fas fa-rocket"></i>
                       <span>{{ proj.title | split: ':' | first }}</span>
                     </a>
