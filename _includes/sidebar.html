@@ -58,22 +58,14 @@
             {% assign sub_cats = sub_cats | sort %}
 
             <li class="nav-item">
-              {% if site.categories[category].size > 0 %}
-              <a href="{{ '/categories/' | append: cat_slug | relative_url }}"
+              <a {% if site.categories[category].size > 0 %}href="{{ '/categories/' | append: cat_slug | relative_url }}"{% endif %}
                  class="nav-link sidebar-sub-link{% if page.categories contains category %} active{% endif %}">
-              {% else %}
-              <span class="nav-link sidebar-sub-link">
-              {% endif %}
                 <i class="fa-fw fas fa-folder-open"></i>
                 <span>{{ category }}</span>
                 {% if site.categories[category].size > 0 %}
                 <span class="sidebar-sub-count">{{ site.categories[category].size }}</span>
                 {% endif %}
-              {% if site.categories[category].size > 0 %}
               </a>
-              {% else %}
-              </span>
-              {% endif %}
               {% if sub_cats.size > 0 %}
                 <ul class="nav flex-column sidebar-sub2">
                   {% for sub in sub_cats %}
