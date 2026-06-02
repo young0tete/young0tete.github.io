@@ -3,8 +3,8 @@ title: "[Benchmark] Tanks and Temples"
 # description: Examples of text, typography, math equations, diagrams, flowcharts, pictures, videos, and more.
 author: young0tete
 date: 2025-10-10
-categories: [Benchmark, 3Drecon]
-tags: [Benchmark, 3Drecon]
+categories: [Benchmark, 3D Reconstruction]
+tags: [Benchmark, 3D Reconstruction]
 pin: false
 math: true
 mermaid: true
