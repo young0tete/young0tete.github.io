@@ -14,6 +14,22 @@ layout: page
   {% assign navbox_id = page.title | slugify %}
   {% if site.data.navboxes[navbox_id] %}
     {% include navbox.html id=navbox_id %}
+  {% else %}
+    {% assign sub_cats = "" | split: "" %}
+    {% for post in site.posts %}
+      {% if post.categories[0] == page.title and post.categories[1] %}
+        {% unless sub_cats contains post.categories[1] %}
+          {% assign sub_cats = sub_cats | push: post.categories[1] %}
+        {% endunless %}
+      {% endif %}
+    {% endfor %}
+    {% assign sub_cats = sub_cats | sort %}
+    {% for sub in sub_cats %}
+      {% assign sub_id = sub | slugify %}
+      {% if site.data.navboxes[sub_id] %}
+        {% include navbox.html id=sub_id %}
+      {% endif %}
+    {% endfor %}
   {% endif %}
 
   <ul class="content ps-0">
