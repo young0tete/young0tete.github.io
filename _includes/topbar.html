@@ -24,7 +24,8 @@
         <span><a href="{{ '/' | relative_url }}">{{ site.data.locales[include.lang].tabs.home | capitalize }}</a></span>
         <span><a href="{{ '/categories/' | relative_url }}">{{ site.data.locales[include.lang].tabs.categories | default: 'Categories' }}</a></span>
         {% if parent_cat != '' %}
-          <span><a href="{{ '/categories/' | append: parent_cat | slugify | relative_url }}/">{{ parent_cat }}</a></span>
+          {% assign parent_cat_slug = parent_cat | slugify %}
+          <span><a href="{{ '/categories/' | append: parent_cat_slug | relative_url }}/">{{ parent_cat }}</a></span>
         {% endif %}
         <span>{{ page.title }}</span>
 
