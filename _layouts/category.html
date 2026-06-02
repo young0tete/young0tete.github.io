@@ -14,17 +14,10 @@ layout: page
     <span class="lead text-muted ps-2">{{ page.posts | size }}</span>
   </h1>
 
-  {% comment %}Show navbox matching current category (single or array){% endcomment %}
+  {% comment %}Show navbox matching current category{% endcomment %}
   {% for nb in all_navboxes %}
     {% assign nb_data = nb[1] %}
-    {% assign nb_matches = false %}
     {% if nb_data.category == page.title %}
-      {% assign nb_matches = true %}
-    {% endif %}
-    {% if nb_data.categories contains page.title %}
-      {% assign nb_matches = true %}
-    {% endif %}
-    {% if nb_matches %}
       {% include navbox.html id=nb[0] %}
     {% endif %}
   {% endfor %}
@@ -43,10 +36,7 @@ layout: page
   {% for sub in sub_cats %}
     {% for nb in all_navboxes %}
       {% assign nb_data = nb[1] %}
-      {% assign nb_matches = false %}
-      {% if nb_data.category == sub %}{% assign nb_matches = true %}{% endif %}
-      {% if nb_data.categories contains sub %}{% assign nb_matches = true %}{% endif %}
-      {% if nb_matches %}
+      {% if nb_data.category == sub %}
         {% include navbox.html id=nb[0] %}
       {% endif %}
     {% endfor %}
