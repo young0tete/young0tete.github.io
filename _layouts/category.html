@@ -4,17 +4,17 @@ layout: page
 
 {% include lang.html %}
 
-{% assign navbox_id = page.title | slugify %}
-{% if site.data.navboxes[navbox_id] %}
-  {% include navbox.html id=navbox_id %}
-{% endif %}
-
 <div id="page-category">
   <h1 class="ps-lg-2">
     <i class="far fa-folder-open fa-fw text-muted"></i>
     {{ page.title }}
     <span class="lead text-muted ps-2">{{ page.posts | size }}</span>
   </h1>
+
+  {% assign navbox_id = page.title | slugify %}
+  {% if site.data.navboxes[navbox_id] %}
+    {% include navbox.html id=navbox_id %}
+  {% endif %}
 
   <ul class="content ps-0">
     {% for post in page.posts %}
