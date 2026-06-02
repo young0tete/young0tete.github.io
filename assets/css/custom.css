@@ -1,3 +1,31 @@
+/* Sidebar nav icon spacing */
+#sidebar .nav-link i {
+  margin-right: 12px !important;
+}
+
+
+/* Sub-category hover extends to cover count badge */
+#sidebar .sidebar-sub2-link {
+  position: relative;
+  overflow: visible !important;
+}
+#sidebar .sidebar-sub2-link:hover {
+  background: transparent !important;
+}
+#sidebar .sidebar-sub2-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  right: -50px;
+  border-radius: 6px;
+  background: transparent;
+  z-index: -1;
+  transition: background 0.15s;
+}
+#sidebar .sidebar-sub2-link:hover::before {
+  background: var(--sidebar-hover-bg);
+}
+
 /* Sidebar nav hover */
 #sidebar .nav-link:hover {
   color: var(--link-color) !important;
@@ -5,6 +33,7 @@
 #sidebar .nav-link:hover i {
   color: var(--link-color) !important;
 }
+
 
 /* Sidebar bottom contact icons hover */
 .sidebar-bottom a:hover {
