@@ -1,4 +1,9 @@
-{% assign navbox = site.data.navboxes[include.id] %}
+{% assign navbox = nil %}
+{% for nb in site.navboxes %}
+  {% if nb.slug == include.id and navbox == nil %}
+    {% assign navbox = nb %}
+  {% endif %}
+{% endfor %}
 {% if navbox %}
 <style>
   .navbox {
@@ -32,14 +37,16 @@
   .navbox-body {
     border-top: 1px solid var(--tb-border-color);
   }
-  .navbox-row {
-    display: flex;
-    border-bottom: 1px solid var(--tb-border-color);
+  .navbox-body {
+    display: grid;
+    grid-template-columns: max-content 1fr;
   }
-  .navbox-row:last-child { border-bottom: none; }
+  .navbox-row {
+    display: contents;
+  }
   .navbox-group {
-    flex-shrink: 0;
-    width: 110px;
+    border-bottom: 1px solid var(--tb-border-color);
+    width: auto;
     padding: 5px 10px;
     font-weight: bold;
     background-color: var(--tb-odd-bg);
@@ -52,7 +59,7 @@
     padding: 5px 10px;
     color: var(--text-color);
     line-height: 1.8;
-    flex: 1;
+    border-bottom: 1px solid var(--tb-border-color);
   }
   .navbox-items a {
     color: var(--link-color);

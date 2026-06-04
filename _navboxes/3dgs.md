@@ -1,4 +1,6 @@
+---
 title: "3DGS Navigator"
+category: "3DGS"
 link: "/posts/3DGS-Navigator/"
 color: "rgb(114, 224, 211)"
 groups:
@@ -11,7 +13,9 @@ groups:
     items:
       - text: "D3DGS"
       - text: "4DGS"
-      - text: "Spacetime Gaussian"
+      - text: "STG"
+      - text: "DSD-GS"
+        url: "/dsd-gs/"
       - text: "Taylor Gaussian"
       - text: "3DGStream"
       - text: "Instant Gaussian Stream"
@@ -32,3 +36,4 @@ groups:
 
   - name: "Avatar"
     items: []
+---
