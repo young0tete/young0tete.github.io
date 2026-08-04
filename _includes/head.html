@@ -9,17 +9,7 @@
     content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
   >
 
-  <!-- Anti-flicker: apply stored theme before CSS renders -->
-  <script>
-    (function() {
-      var mode = sessionStorage.getItem('mode');
-      if (mode) {
-        document.documentElement.setAttribute('data-mode', mode);
-      }
-    })();
-  </script>
-
-  {%- capture seo_tags -%}
+{%- capture seo_tags -%}
     {% seo title=false %}
   {%- endcapture -%}
 
@@ -62,7 +52,7 @@
 
   <title>
     {%- unless page.layout == 'home' -%}
-      {{ page.title | append: ' | ' }}
+      {{ page.title | first | default: page.title | append: ' | ' }}
     {%- endunless -%}
     {{ site.title }}
   </title>
