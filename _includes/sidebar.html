@@ -120,13 +120,16 @@
           if (!btn) return;
           btn.addEventListener('click', function(e) {
             e.stopImmediatePropagation();
-            var html = document.documentElement;
-            var cur = html.getAttribute('data-mode') ||
-                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-            var next = cur === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-mode', next);
-            try { sessionStorage.setItem('mode', next); } catch(_) {}
-            window.postMessage({id: 'theme-mode'}, '*');
+            if (typeof Theme === 'undefined') return;
+            if (typeof Theme.update === 'function') {
+              Theme.update(Theme.isDark ? Theme.Mode.LIGHT : Theme.Mode.DARK);
+            } else if (typeof Theme.flip === 'function') {
+              var cur = document.documentElement.getAttribute('data-mode') ||
+                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+              var next = cur === 'dark' ? 'light' : 'dark';
+              document.documentElement.setAttribute('data-mode', next);
+              try { sessionStorage.setItem('mode', next); } catch(_) {}
+            }
           });
         })();
       </script>
