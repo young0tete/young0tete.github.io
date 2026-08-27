@@ -70,6 +70,24 @@
     margin: 0 4px;
     opacity: 0.4;
   }
+  .navbox-subgroup {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: nowrap;
+    line-height: 1.8;
+  }
+  .navbox-subgroup-name {
+    font-weight: 600;
+    color: var(--label-color);
+    margin-right: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .navbox-subgroup-items {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
   .navbox-empty {
     opacity: 0.45;
     font-style: italic;
@@ -91,13 +109,37 @@
       <div class="navbox-row">
         <div class="navbox-group">{{ group.name }}</div>
         <div class="navbox-items">
-          {% if group.items and group.items.size > 0 %}
+          {% if group.subgroups and group.subgroups.size > 0 %}
+            {% for subgroup in group.subgroups %}
+              <div class="navbox-subgroup">
+                <span class="navbox-subgroup-name">{{ subgroup.name }}</span>
+                <div class="navbox-subgroup-items">
+                  {% if subgroup.items and subgroup.items.size > 0 %}
+                    {% for item in subgroup.items %}
+                      {% unless forloop.first %}<span class="navbox-sep">·</span>{% endunless %}
+                      {% if item.url %}
+                        <a href="{{ item.url }}">{{ item.text }}</a>
+                      {% else %}
+                        {{ item.text }}
+                      {% endif %}
+                    {% endfor %}
+                  {% else %}
+                    <span class="navbox-empty">coming soon</span>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          {% elsif group.items and group.items.size > 0 %}
             {% for item in group.items %}
-              {% unless forloop.first %}<span class="navbox-sep">·</span>{% endunless %}
-              {% if item.url %}
-                <a href="{{ item.url }}">{{ item.text }}</a>
+              {% if item.break %}
+                <br>
               {% else %}
-                {{ item.text }}
+                {% unless forloop.first %}<span class="navbox-sep">·</span>{% endunless %}
+                {% if item.url %}
+                  <a href="{{ item.url }}">{{ item.text }}</a>
+                {% else %}
+                  {{ item.text }}
+                {% endif %}
               {% endif %}
             {% endfor %}
           {% else %}

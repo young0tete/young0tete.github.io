@@ -12,6 +12,20 @@
         <!-- index page -->
         <span>{{ site.data.locales[include.lang].tabs.home | capitalize }}</span>
 
+      {% elsif page.layout == 'post' %}
+        <span><a href="{{ '/' | relative_url }}">{{ site.data.locales[include.lang].tabs.home | capitalize }}</a></span>
+        {% if page.categories.size > 0 %}
+          {% assign top_cat = page.categories[0] %}
+          {% assign top_cat_slug = top_cat | slugify %}
+          <span><a href="{{ '/categories/' | append: top_cat_slug | relative_url }}/">{{ top_cat }}</a></span>
+          {% if page.categories.size > 1 %}
+            {% assign sub_cat = page.categories[1] %}
+            {% assign sub_cat_slug = sub_cat | slugify %}
+            <span><a href="{{ '/categories/' | append: sub_cat_slug | relative_url }}/">{{ sub_cat }}</a></span>
+          {% endif %}
+        {% endif %}
+        <span>{{ page.title }}</span>
+
       {% elsif page.layout == 'category' %}
         <!-- Find parent category from posts -->
         {% assign parent_cat = '' %}

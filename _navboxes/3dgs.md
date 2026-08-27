@@ -34,6 +34,10 @@ groups:
   - name: "Scene Editing"
     items: []
 
-  - name: "Avatar"
-    items: []
+  - name: "Rasterization"
+    items:
+      - text: "3DGS"
+      - text: "FastGS"
+      - text: "FlashGS"
+      - text: "HiGS"
 ---
