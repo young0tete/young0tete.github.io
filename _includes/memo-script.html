@@ -1,0 +1,19 @@
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var memos = document.querySelectorAll('.memo');
+  if (!memos.length) return;
+
+  memos.forEach(function (memo) {
+    memo.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var isActive = memo.classList.contains('active');
+      memos.forEach(function (m) { m.classList.remove('active'); });
+      if (!isActive) memo.classList.add('active');
+    });
+  });
+
+  document.addEventListener('click', function () {
+    memos.forEach(function (m) { m.classList.remove('active'); });
+  });
+});
+</script>

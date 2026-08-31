@@ -114,6 +114,13 @@
   .sidebar-sub2-link .sidebar-sub-count { margin-left: 8px; }
 </style>
 
+{% if page.layout == 'project-page' or page.layout == 'page' %}
+<style>
+  #panel-wrapper { display: none !important; }
+  #main-wrapper > .row > .col-xl-9 { max-width: 100% !important; flex: 0 0 100% !important; }
+</style>
+{% endif %}
+
 {% if page.layout == 'home' %}
 <style>
   /* Disable Chirpy shimmer animation on home page */

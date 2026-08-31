@@ -25,91 +25,123 @@
           <span>{{ site.data.locales[include.lang].tabs.home | upcase }}</span>
         </a>
       </li>
-      <!-- the real tabs -->
+
       {% for tab in site.tabs %}
         {% capture tab_url_check %}{{ tab.url }}{% endcapture %}
 
-        {% unless tab_url_check contains 'categories' %}
-          <li class="nav-item{% if tab.url == page.url %}{{ " active" }}{% endif %}"{% if tab_url_check contains 'tags' %} style="margin-top:0.8rem"{% endif %}>
-            <a href="{{ tab.url | relative_url }}" class="nav-link">
-              <i class="fa-fw {{ tab.icon }}"></i>
-              {% capture tab_name %}{{ tab.url | split: '/' }}{% endcapture %}
-              <span>{{ site.data.locales[include.lang].tabs.[tab_name] | default: tab.title | upcase }}</span>
-            </a>
-          </li>
-        {% endunless %}
+        {% unless tab_url_check contains 'tags' %}
 
-        {% if tab_url_check contains 'categories' %}
-          <li class="nav-item">
-            <a href="{{ '/categories/' | relative_url }}" class="sidebar-cat-label">Categories</a>
-          </li>
-          {% for cat_entry in site.data.category_order %}
-            {% assign category = cat_entry.name %}
-            {% assign cat_slug = category | slugify %}
-
-            {% assign sub_cats = "" | split: "" %}
-            {% for post in site.posts %}
-              {% if post.categories[0] == category and post.categories[1] %}
-                {% unless sub_cats contains post.categories[1] %}
-                  {% assign sub_cats = sub_cats | push: post.categories[1] %}
-                {% endunless %}
-              {% endif %}
+          {% if tab_url_check contains 'project_pages' %}
+            <!-- PROJECT PAGES: link + conditional sub-items -->
+            {% assign proj_active = false %}
+            {% assign project_pages_list = site.pages | where: "layout", "project-page" | sort: "title" %}
+            {% for proj in project_pages_list %}
+              {% if page.url == proj.permalink %}{% assign proj_active = true %}{% endif %}
             {% endfor %}
-            {% assign sub_cats = sub_cats | sort %}
-
-            {% if site.categories[category].size > 0 %}
-            <li class="nav-item">
-              <a href="{{ '/categories/' | append: cat_slug | relative_url }}"
-                 class="nav-link sidebar-sub-link{% if page.categories contains category %} active{% endif %}">
-                <i class="fa-fw fas fa-folder-open"></i>
-                <span>{{ category }}</span>
-                <span class="sidebar-sub-count">{{ site.categories[category].size }}</span>
+            <li class="nav-item{% if page.url == tab.url or proj_active %} active{% endif %}">
+              <a href="{{ tab.url | relative_url }}" class="nav-link">
+                <i class="fa-fw fas fa-rocket"></i>
+                <span>{{ tab.title | upcase }}</span>
               </a>
-              {% if sub_cats.size > 0 %}
-                <ul class="nav flex-column sidebar-sub2">
-                  {% for sub in sub_cats %}
-                    {% assign sub_slug = sub | slugify %}
+              {% if page.url == tab.url or proj_active %}
+                <ul class="nav flex-column sidebar-proj-sub">
+                  {% for proj in project_pages_list %}
                     <li class="nav-item">
-                      <a href="{{ '/categories/' | append: sub_slug | relative_url }}"
-                         class="nav-link sidebar-sub-link sidebar-sub2-link{% if page.categories contains sub %} active{% endif %}">
-                        <i class="fa-fw fas fa-folder"></i>
-                        <span>{{ sub }}</span>
-                        <span class="sidebar-sub-count">{{ site.categories[sub].size }}</span>
+                      <a href="{{ proj.permalink | relative_url }}"
+                         class="nav-link sidebar-sub-link{% if page.url == proj.permalink %} active{% endif %}">
+                        <i class="fa-fw fas fa-rocket"></i>
+                        <span>{{ proj.title | split: ':' | first }}</span>
                       </a>
                     </li>
                   {% endfor %}
                 </ul>
               {% endif %}
             </li>
-            {% endif %}
-          {% endfor %}
-          <div style="height:0.8rem;width:100%;flex-shrink:0;"></div>
-        {% endif %}
 
-        {% if tab_url_check contains 'project_pages' %}
-          {% assign project_pages = site.pages | where: "layout", "project-page" | sort: "title" %}
-          {% if project_pages.size > 0 %}
-            <li class="nav-item sidebar-subnav">
-              <ul class="nav flex-column">
-                {% for proj in project_pages %}
+          {% elsif tab_url_check contains 'categories' %}
+            <!-- BLOG: link to categories + conditional sub-items -->
+            {% assign blog_active = false %}
+            {% if page.layout == 'post' or page.layout == 'category' or page.layout == 'tag' or page.layout == 'categories' or page.layout == 'tags' %}
+              {% assign blog_active = true %}
+            {% endif %}
+            <li class="nav-item{% if blog_active %} active{% endif %}">
+              <a href="{{ tab.url | relative_url }}" class="nav-link">
+                <i class="fa-fw fas fa-pen"></i>
+                <span>BLOG</span>
+              </a>
+              {% if blog_active %}
+                <ul class="nav flex-column sidebar-blog-sub">
                   <li class="nav-item">
-                    <a href="{{ proj.permalink | relative_url }}"
-                       class="nav-link sidebar-sub-link sidebar-sub2-link{% if page.url == proj.permalink %} active{% endif %}">
-                      <i class="fa-fw fas fa-rocket"></i>
-                      <span>{{ proj.title | split: ':' | first }}</span>
-                    </a>
+                    <a href="{{ '/categories/' | relative_url }}" class="sidebar-cat-label">Categories</a>
                   </li>
-                {% endfor %}
-              </ul>
+                  {% for cat_entry in site.data.category_order %}
+                    {% assign category = cat_entry.name %}
+                    {% assign cat_slug = category | slugify %}
+                    {% assign sub_cats = "" | split: "" %}
+                    {% for post in site.posts %}
+                      {% if post.categories[0] == category and post.categories[1] %}
+                        {% unless sub_cats contains post.categories[1] %}
+                          {% assign sub_cats = sub_cats | push: post.categories[1] %}
+                        {% endunless %}
+                      {% endif %}
+                    {% endfor %}
+                    {% assign sub_cats = sub_cats | sort %}
+                    {% if site.categories[category].size > 0 %}
+                      <li class="nav-item">
+                        <a href="{{ '/categories/' | append: cat_slug | relative_url }}"
+                           class="nav-link sidebar-sub-link{% if page.categories contains category %} active{% endif %}">
+                          <i class="fa-fw fas fa-folder-open"></i>
+                          <span>{{ category }}</span>
+                          <span class="sidebar-sub-count">{{ site.categories[category].size }}</span>
+                        </a>
+                        {% if sub_cats.size > 0 %}
+                          <ul class="nav flex-column sidebar-sub2">
+                            {% for sub in sub_cats %}
+                              {% assign sub_slug = sub | slugify %}
+                              <li class="nav-item">
+                                <a href="{{ '/categories/' | append: sub_slug | relative_url }}"
+                                   class="nav-link sidebar-sub-link sidebar-sub2-link{% if page.categories contains sub %} active{% endif %}">
+                                  <i class="fa-fw fas fa-folder"></i>
+                                  <span>{{ sub }}</span>
+                                  <span class="sidebar-sub-count">{{ site.categories[sub].size }}</span>
+                                </a>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        {% endif %}
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                  <div style="height:0.4rem;"></div>
+                  {% for t in site.tabs %}
+                    {% capture t_url %}{{ t.url }}{% endcapture %}
+                    {% if t_url contains 'tags' %}
+                      <li class="nav-item">
+                        <a href="{{ t.url | relative_url }}" class="sidebar-cat-label{% if page.layout == 'tags' %} active{% endif %}">TAGS</a>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </li>
+
+          {% else %}
+            <!-- Normal tabs (Gallery, etc.) -->
+            <li class="nav-item{% if tab.url == page.url %} active{% endif %}">
+              <a href="{{ tab.url | relative_url }}" class="nav-link sidebar-plain-link">
+                <i class="fa-fw {{ tab.icon }}"></i>
+                {% capture tab_name %}{{ tab.url | split: '/' }}{% endcapture %}
+                <span>{{ site.data.locales[include.lang].tabs.[tab_name] | default: tab.title | upcase }}</span>
+              </a>
             </li>
           {% endif %}
-        {% endif %}
-        <!-- .nav-item -->
+
+        {% endunless %}
       {% endfor %}
     </ul>
   </nav>
 
-  <div class="sidebar-bottom d-flex flex-wrap  align-items-center w-100">
+  <div class="sidebar-bottom d-flex flex-wrap align-items-center w-100">
     {% unless site.theme_mode %}
       <button type="button" class="btn btn-link nav-link" aria-label="Switch Mode" id="mode-toggle">
         <i class="fas fa-adjust"></i>

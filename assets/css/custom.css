@@ -3,8 +3,45 @@
   display: block !important;
 }
 
+/* Reduce left indent for blog sub-items (Chirpy stacks 1.5rem per nesting level) */
+#sidebar .sidebar-blog-sub > li.nav-item {
+  padding-left: 0.5rem !important;
+}
+#sidebar .sidebar-blog-sub .sidebar-sub2 > li.nav-item {
+  padding-left: 1.75rem !important;
+}
+
+/* Reduce left indent for project pages sub-items */
+#sidebar .sidebar-proj-sub > li.nav-item {
+  padding-left: 0.75rem !important;
+}
+
+/* Sub-items inside active nav-item should not inherit active background */
+#sidebar ul li.nav-item.active .nav-link.sidebar-sub-link,
+#sidebar ul li.nav-item.active .nav-link.sidebar-sub2-link {
+  background-color: transparent !important;
+  color: var(--sidebar-muted-color) !important;
+}
+#sidebar ul li.nav-item.active .nav-link.sidebar-sub-link.active,
+#sidebar ul li.nav-item.active .nav-link.sidebar-sub2-link.active,
+#sidebar ul li.nav-item.active .nav-link.sidebar-sub-link:hover,
+#sidebar ul li.nav-item.active .nav-link.sidebar-sub2-link:hover {
+  color: var(--sidebar-active-color) !important;
+}
+
+/* Force sidebar nav links to use muted color (prevents teal link color on new tabs) */
+#sidebar nav .nav-link.sidebar-plain-link {
+  color: var(--sidebar-muted-color) !important;
+}
+#sidebar nav .nav-item.active > .nav-link.sidebar-plain-link,
+#sidebar nav .nav-link.sidebar-plain-link:hover {
+  color: var(--sidebar-active-color) !important;
+}
+
+
 /* Sidebar nav icon spacing */
-#sidebar .nav-link i {
+#sidebar .nav-link i,
+#sidebar .sidebar-collapse-btn i:not(.sidebar-chevron) {
   margin-right: 12px !important;
 }
 
