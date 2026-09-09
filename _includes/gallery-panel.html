@@ -115,23 +115,24 @@
     }
   }
 
-  document.getElementById('gcal-prev').addEventListener('click', function() {
+  var _prev = document.getElementById('gcal-prev');
+  var _next = document.getElementById('gcal-next');
+  var _lbl  = document.getElementById('gcal-month-lbl');
+
+  if (_prev) _prev.addEventListener('click', function() {
     if (--calM < 0) { calM = 11; calY--; }
     render();
   });
-  document.getElementById('gcal-next').addEventListener('click', function() {
+  if (_next) _next.addEventListener('click', function() {
     if (++calM > 11) { calM = 0; calY++; }
     render();
   });
-  document.getElementById('gcal-month-lbl').addEventListener('click', function() {
+  if (_lbl) _lbl.addEventListener('click', function() {
     applyFilter('month', monthStr(calY, calM));
   });
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', render);
-  } else {
-    render();
-  }
+  /* 이 스크립트 위의 HTML 요소들은 이미 DOM에 있으므로 즉시 render */
+  render();
 })();
 </script>
 

@@ -488,6 +488,7 @@ var galleryData = [
   })(){% unless forloop.last %},{% endunless %}
   {% endfor %}
 ];
+window.galleryData = galleryData;
 
 (function () {
   if (window._galleryModalReady) return;
