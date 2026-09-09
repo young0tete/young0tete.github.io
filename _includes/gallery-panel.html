@@ -1,0 +1,145 @@
+{% comment %}Right-panel calendar — only for gallery-tab layout{% endcomment %}
+{% if page.layout == 'gallery-tab' %}
+
+{% comment %}Build JS date array from gallery items{% endcomment %}
+{% assign gcal_dates_js = "" %}
+{% for item in site.data.gallery.items %}
+  {% if item.date and item.date != "" %}
+    {% assign gcal_dates_js = gcal_dates_js | append: '"' | append: item.date | append: '",' %}
+  {% endif %}
+{% endfor %}
+
+<section id="gallery-cal-section">
+  <div class="gcal-header">
+    <button class="gcal-nav-btn" id="gcal-prev">&#8249;</button>
+    <button class="gcal-month-btn" id="gcal-month-lbl"></button>
+    <button class="gcal-nav-btn" id="gcal-next">&#8250;</button>
+  </div>
+  <table class="gcal-grid">
+    <thead>
+      <tr>
+        <th class="gcal-th-sun">일</th>
+        <th>월</th><th>화</th><th>수</th><th>목</th><th>금</th>
+        <th class="gcal-th-sat">토</th>
+      </tr>
+    </thead>
+    <tbody id="gcal-body"></tbody>
+  </table>
+</section>
+
+<script>
+(function() {
+  var _gcalDates = [{{ gcal_dates_js }}];
+
+  var now   = new Date();
+  var calY  = now.getFullYear();
+  var calM  = now.getMonth(); // 0-indexed
+  var selDate = null; // null | {type:'day'|'month', val:'YYYY.MM.DD'|'YYYY.MM'}
+
+  function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+  function monthStr(y, m) { return y + '.' + pad2(m + 1); }
+  function dayStr(y, m, d) { return y + '.' + pad2(m + 1) + '.' + pad2(d); }
+
+  /* 이번 달에 카드가 있는 day 번호 집합 */
+  function cardDaysInMonth(y, m) {
+    var set = {};
+    _gcalDates.forEach(function(d) {
+      var p = d.split('.');
+      if (p.length >= 3 && +p[0] === y && +p[1] - 1 === m) set[+p[2]] = true;
+    });
+    return set;
+  }
+
+  /* 이번 달에 카드가 하나라도 있는지 (month-level 포함) */
+  function monthHasCards(y, m) {
+    return _gcalDates.some(function(d) {
+      var p = d.split('.');
+      return p.length >= 2 && +p[0] === y && +p[1] - 1 === m;
+    });
+  }
+
+  function applyFilter(type, val) {
+    /* 같은 항목 재클릭 → 해제 */
+    if (selDate && selDate.type === type && selDate.val === val) {
+      selDate = null;
+    } else {
+      selDate = { type: type, val: val };
+    }
+    if (window._galleryFilter !== undefined && window._galleryApplyFilter) {
+      window._galleryFilter.date = selDate;
+      window._galleryApplyFilter();
+    }
+    render();
+  }
+
+  function render() {
+    var lbl = document.getElementById('gcal-month-lbl');
+    var ms  = monthStr(calY, calM);
+    lbl.textContent = calY + '. ' + pad2(calM + 1);
+
+    var mHas = monthHasCards(calY, calM);
+    lbl.style.cursor  = mHas ? 'pointer' : 'default';
+    lbl.style.opacity = mHas ? '1' : '0.55';
+    var mSel = selDate && selDate.type === 'month' && selDate.val === ms;
+    lbl.classList.toggle('selected', mSel);
+
+    var cardDays  = cardDaysInMonth(calY, calM);
+    var firstDay  = new Date(calY, calM, 1).getDay(); // 0=Sun
+    var lastDay   = new Date(calY, calM + 1, 0).getDate();
+
+    var body = document.getElementById('gcal-body');
+    body.innerHTML = '';
+    var day = 1;
+
+    for (var row = 0; row < 6; row++) {
+      if (day > lastDay) break;
+      var tr = document.createElement('tr');
+      for (var col = 0; col < 7; col++) {
+        var td = document.createElement('td');
+        td.className = 'gcal-day';
+        if (col === 0) td.classList.add('gcal-sun');
+        if (col === 6) td.classList.add('gcal-sat');
+
+        var empty = (row === 0 && col < firstDay) || day > lastDay;
+        if (!empty) {
+          td.textContent = day;
+          if (cardDays[day]) {
+            td.classList.add('has-card');
+            var ds = dayStr(calY, calM, day);
+            (function(s) {
+              td.addEventListener('click', function() { applyFilter('day', s); });
+            })(ds);
+            if (selDate && selDate.type === 'day' && selDate.val === ds) {
+              td.classList.add('selected');
+            }
+          }
+          day++;
+        }
+        tr.appendChild(td);
+      }
+      body.appendChild(tr);
+    }
+  }
+
+  document.getElementById('gcal-prev').addEventListener('click', function() {
+    if (--calM < 0) { calM = 11; calY--; }
+    render();
+  });
+  document.getElementById('gcal-next').addEventListener('click', function() {
+    if (++calM > 11) { calM = 0; calY++; }
+    render();
+  });
+  document.getElementById('gcal-month-lbl').addEventListener('click', function() {
+    if (!monthHasCards(calY, calM)) return;
+    applyFilter('month', monthStr(calY, calM));
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', render);
+  } else {
+    render();
+  }
+})();
+</script>
+
+{% endif %}

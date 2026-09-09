@@ -1,3 +1,106 @@
+/* ── Gallery calendar panel ───────────────────────────────────────── */
+#gallery-cal-section {
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--main-border-color);
+  border-radius: 10px;
+  padding: 0.75rem 0.85rem 0.85rem;
+  background: var(--card-bg, transparent);
+}
+
+/* Header: ‹  2026. 09  › */
+.gcal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.55rem;
+}
+
+.gcal-nav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted-color);
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  transition: color 0.15s, background 0.15s;
+}
+.gcal-nav-btn:hover {
+  color: var(--link-color);
+  background: color-mix(in srgb, var(--link-color) 12%, transparent);
+}
+
+.gcal-month-btn {
+  background: none;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--heading-color);
+  padding: 0.15rem 0.5rem;
+  border-radius: 5px;
+  transition: color 0.15s, background 0.15s;
+  letter-spacing: 0.01em;
+}
+.gcal-month-btn:hover {
+  color: var(--link-color);
+  background: color-mix(in srgb, var(--link-color) 12%, transparent);
+}
+.gcal-month-btn.selected {
+  color: var(--link-color) !important;
+  background: color-mix(in srgb, var(--link-color) 14%, transparent);
+}
+
+/* Grid table */
+.gcal-grid {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.gcal-grid th {
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted-color);
+  padding: 0.2rem 0 0.35rem;
+}
+.gcal-th-sun { color: #cc3333 !important; }
+.gcal-th-sat { color: var(--link-color) !important; }
+
+/* Day cells */
+.gcal-day {
+  text-align: center;
+  font-size: 0.83rem;
+  padding: 0.28rem 0;
+  color: var(--text-muted-color);
+  opacity: 0.3;
+  line-height: 1.7;
+}
+.gcal-day.gcal-sun { color: #cc3333; }
+.gcal-day.gcal-sat { color: var(--link-color); }
+
+/* Days with cards — bold, clickable */
+.gcal-day.has-card {
+  opacity: 1;
+  font-weight: 700;
+  cursor: pointer;
+}
+.gcal-day.has-card:hover {
+  color: var(--link-color) !important;
+  text-decoration: underline;
+}
+
+/* Selected day */
+.gcal-day.has-card.selected {
+  color: var(--link-color) !important;
+  text-decoration: underline;
+  font-weight: 800;
+}
+
+/* ── End gallery calendar ─────────────────────────────────────────── */
+
+
 /* Chirpy v7.6.0 hides #mode-toggle>i by default; force it visible */
 #sidebar .sidebar-bottom #mode-toggle > i {
   display: block !important;

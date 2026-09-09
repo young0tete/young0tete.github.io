@@ -35,9 +35,10 @@ layout: compress
           <!-- panel -->
           <aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted">
             <div class="access">
+              {% include gallery-panel.html lang=lang %}
               {% include projects-panel.html lang=lang %}
               {% include categories-panel.html lang=lang %}
-              {% unless page.layout == 'project-page' or page.layout == 'project-tab' %}
+              {% unless page.layout == 'project-page' or page.layout == 'project-tab' or page.layout == 'gallery-tab' %}
                 {% include_cached update-list.html lang=lang %}
               {% endunless %}
             </div>

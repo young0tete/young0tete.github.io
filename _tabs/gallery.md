@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: gallery-tab
 title: Gallery
 icon: fas fa-images
 order: 3
@@ -383,7 +383,7 @@ img.emoji { height: 1em; width: 1em; vertical-align: -0.1em; }
     {% if _fi.url %}{% assign first_img = _fi.url | strip %}
     {% else %}{% assign first_img = _fi | default: "" | strip %}{% endif %}
   {% endif %}
-  <div class="gallery-card" data-index="{{ forloop.index0 }}" data-category="{{ item.category }}">
+  <div class="gallery-card" data-index="{{ forloop.index0 }}" data-category="{{ item.category }}" data-date="{{ item.date | default: '' }}">
     {% assign has_loc = false %}
     {% if item.location and item.location != "" %}{% assign has_loc = true %}{% endif %}
     <div class="gallery-card-header">
@@ -626,17 +626,35 @@ var galleryData = [
   /* 카드 제목 이모지 렌더링 */
   document.querySelectorAll('.gallery-card-title').forEach(function (el) { twparse(el); });
 
+  /* ── 공통 필터 상태 (카테고리 + 날짜) ── */
+  window._galleryFilter = { cat: 'all', date: null };
+  window._galleryApplyFilter = function() {
+    var cat = window._galleryFilter.cat;
+    var df  = window._galleryFilter.date; // null | {type:'day'|'month', val:string}
+    document.querySelectorAll('.gallery-card').forEach(function(c) {
+      var catOk  = (cat === 'all' || c.getAttribute('data-category') === cat);
+      var dateOk = true;
+      if (df) {
+        var cd = c.getAttribute('data-date') || '';
+        if (df.type === 'day') {
+          dateOk = cd === df.val;
+        } else {
+          /* month: 'YYYY.MM' 또는 'YYYY.MM.DD' 모두 허용 */
+          dateOk = cd === df.val || cd.indexOf(df.val + '.') === 0;
+        }
+      }
+      c.style.display = (catOk && dateOk) ? '' : 'none';
+    });
+  };
+
   /* ── Filter bar ── */
   var filterBtns = document.querySelectorAll('.gf-btn');
-  var allCards   = document.querySelectorAll('.gallery-card');
   filterBtns.forEach(function (btn) {
     btn.addEventListener('click', function () {
       filterBtns.forEach(function (b) { b.classList.remove('active'); });
       btn.classList.add('active');
-      var cat = btn.getAttribute('data-filter');
-      allCards.forEach(function (c) {
-        c.style.display = (cat === 'all' || c.getAttribute('data-category') === cat) ? '' : 'none';
-      });
+      window._galleryFilter.cat = btn.getAttribute('data-filter');
+      window._galleryApplyFilter();
     });
   });
 })();
