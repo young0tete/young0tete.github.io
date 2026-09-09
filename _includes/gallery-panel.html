@@ -1,14 +1,6 @@
 {% comment %}Right-panel calendar — only for gallery-tab layout{% endcomment %}
 {% if page.layout == 'gallery-tab' %}
 
-{% comment %}Build JS date array from gallery items{% endcomment %}
-{% assign gcal_dates_js = "" %}
-{% for item in site.data.gallery.items %}
-  {% if item.date and item.date != "" %}
-    {% assign gcal_dates_js = gcal_dates_js | append: '"' | append: item.date | append: '",' %}
-  {% endif %}
-{% endfor %}
-
 <section id="gallery-cal-section">
   <div class="gcal-header">
     <button class="gcal-nav-btn" id="gcal-prev">&#8249;</button>
@@ -29,7 +21,10 @@
 
 <script>
 (function() {
-  var _gcalDates = [{{ gcal_dates_js }}];
+  /* gallery.md의 galleryData에서 날짜 추출 (Liquid 의존 없이) */
+  var _gcalDates = (window.galleryData || [])
+    .map(function(item) { return item.date || ''; })
+    .filter(function(d) { return d !== ''; });
 
   var now   = new Date();
   var calY  = now.getFullYear();
@@ -77,9 +72,8 @@
     var ms  = monthStr(calY, calM);
     lbl.textContent = calY + '. ' + pad2(calM + 1);
 
-    var mHas = monthHasCards(calY, calM);
-    lbl.style.cursor  = mHas ? 'pointer' : 'default';
-    lbl.style.opacity = mHas ? '1' : '0.55';
+    lbl.style.cursor  = 'pointer';
+    lbl.style.opacity = '1';
     var mSel = selDate && selDate.type === 'month' && selDate.val === ms;
     lbl.classList.toggle('selected', mSel);
 
@@ -130,7 +124,6 @@
     render();
   });
   document.getElementById('gcal-month-lbl').addEventListener('click', function() {
-    if (!monthHasCards(calY, calM)) return;
     applyFilter('month', monthStr(calY, calM));
   });
 

@@ -5,7 +5,7 @@
   <h2 class="panel-heading">
     <a href="{{ '/categories/' | relative_url }}">Categories</a>
   </h2>
-  <ul class="content list-unstyled ps-0 pb-0 ms-1 mt-2 mb-0">
+  <ul class="list-unstyled ps-0 pb-0 ms-1 mt-2 mb-0">
     {% for cat_entry in site.data.category_order %}
       {% assign category = cat_entry.name %}
       {% assign cat_slug  = category | slugify %}

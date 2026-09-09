@@ -287,6 +287,12 @@
   color: var(--link-color);
 }
 
+/* ── Override Chirpy's hard-coded #d2603a for Recently Updated ────── */
+#access-lastmod a:hover {
+  color: var(--link-color) !important;
+  border-bottom-color: var(--link-color) !important;
+}
+
 /* ── End panel categories ─────────────────────────────────────────── */
 
 

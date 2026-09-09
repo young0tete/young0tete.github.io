@@ -5,7 +5,7 @@
   <h2 class="panel-heading">
     <a href="{{ '/project_pages/' | relative_url }}">Projects</a>
   </h2>
-  <ul class="content list-unstyled ps-0 pb-0 ms-1 mt-2 mb-0">
+  <ul class="list-unstyled ps-0 pb-0 ms-1 mt-2 mb-0">
     {% for proj in project_pages_list %}
       {% assign proj_short = proj.title | split: ':' | first | strip %}
       <li class="pproj-item">

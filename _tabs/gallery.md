@@ -408,6 +408,12 @@ img.emoji { height: 1em; width: 1em; vertical-align: -0.1em; }
   {% endfor %}
 </div>
 
+<!-- 날짜 필터 결과 없음 메시지 -->
+<div id="gallery-no-date-msg" class="gallery-empty" style="display:none;">
+  <i class="fas fa-calendar-times"></i>
+  <p id="gallery-no-date-text"></p>
+</div>
+
 <!-- Modal (JS will move this to document.body to escape Chirpy transforms) -->
 <div class="gallery-modal-overlay" id="gallery-modal">
   <button class="gallery-modal-close" id="modal-close" aria-label="Close">&#x2715;</button>
@@ -631,6 +637,7 @@ var galleryData = [
   window._galleryApplyFilter = function() {
     var cat = window._galleryFilter.cat;
     var df  = window._galleryFilter.date; // null | {type:'day'|'month', val:string}
+    var visible = 0;
     document.querySelectorAll('.gallery-card').forEach(function(c) {
       var catOk  = (cat === 'all' || c.getAttribute('data-category') === cat);
       var dateOk = true;
@@ -643,8 +650,28 @@ var galleryData = [
           dateOk = cd === df.val || cd.indexOf(df.val + '.') === 0;
         }
       }
-      c.style.display = (catOk && dateOk) ? '' : 'none';
+      var show = catOk && dateOk;
+      c.style.display = show ? '' : 'none';
+      if (show) visible++;
     });
+    /* 날짜 필터 결과 없음 메시지 */
+    var noMsg = document.getElementById('gallery-no-date-msg');
+    var noTxt = document.getElementById('gallery-no-date-text');
+    if (noMsg && noTxt) {
+      if (df && visible === 0) {
+        var label = '';
+        if (df.type === 'month') {
+          var mo = parseInt(df.val.split('.')[1], 10);
+          label = mo + '월에 올린 카드가 없습니다.';
+        } else {
+          label = df.val + '에 올린 카드가 없습니다.';
+        }
+        noTxt.textContent = label;
+        noMsg.style.display = '';
+      } else {
+        noMsg.style.display = 'none';
+      }
+    }
   };
 
   /* ── Filter bar ── */
