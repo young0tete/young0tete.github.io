@@ -98,6 +98,146 @@
 }
 
 
+/* ── Right panel: Categories section ──────────────────────────────── */
+#access-categories {
+  margin-bottom: 1.5rem;
+}
+
+#access-categories .panel-heading {
+  /* re-use Chirpy's panel-heading style; override just the color */
+}
+
+#access-categories .panel-heading a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#access-categories .panel-heading a:hover {
+  color: var(--link-color);
+}
+
+/* category link rows */
+.pcat-item {
+  margin-bottom: 0.1rem;
+}
+
+.pcat-link {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0.18rem 0.35rem;
+  border-radius: 5px;
+  color: var(--text-muted-color);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.15s, background 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.pcat-link:hover {
+  color: var(--link-color) !important;
+  background: var(--sidebar-hover-bg, rgba(0,0,0,0.06));
+  text-decoration: none;
+}
+
+.pcat-link.active {
+  color: var(--link-color) !important;
+  font-weight: 600;
+}
+
+.pcat-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pcat-count {
+  margin-left: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--text-muted-color);
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+/* sub-category indented list */
+.pcat-sub-list {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.pcat-sub-link {
+  font-size: 0.82rem;
+}
+
+/* Tags section */
+#access-tags {
+  margin-bottom: 1.5rem;
+}
+
+#access-tags .panel-heading a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#access-tags .panel-heading a:hover {
+  color: var(--link-color);
+}
+
+/* ── End panel categories ─────────────────────────────────────────── */
+
+
+/* ── Right panel: Projects section ───────────────────────────────── */
+#access-projects {
+  margin-bottom: 1.5rem;
+}
+
+#access-projects .panel-heading a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#access-projects .panel-heading a:hover {
+  color: var(--link-color);
+}
+
+.pproj-item {
+  margin-bottom: 0.1rem;
+}
+
+.pproj-link {
+  display: flex;
+  align-items: center;
+  padding: 0.18rem 0.35rem;
+  border-radius: 5px;
+  color: var(--text-muted-color);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.15s, background 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.pproj-link:hover {
+  color: var(--link-color) !important;
+  background: var(--sidebar-hover-bg, rgba(0,0,0,0.06));
+  text-decoration: none;
+}
+
+.pproj-link.active {
+  color: var(--link-color) !important;
+  font-weight: 600;
+}
+
+.pproj-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── End panel projects ───────────────────────────────────────────── */
+
+
 /* Fix paragraph margin when memo is inside a list item */
 .content li > p:only-child {
   margin: 0;

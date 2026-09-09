@@ -1,23 +1,34 @@
 <link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
 
 <style>
-  html[data-mode=dark],
-  html:not([data-mode]) {
+  /* Dark: explicitly set or system default before JS runs */
+  html[data-bs-theme=dark] {
     --link-color: rgb(114, 224, 211) !important;
     --toc-highlight: rgb(114, 224, 211) !important;
     --checkbox-checked-color: rgb(114, 224, 211) !important;
     --btn-share-hover-color: rgb(114, 224, 211) !important;
   }
-  html[data-mode=light] {
-    --link-color: rgb(85, 195, 180) !important;
-    --toc-highlight: rgb(85, 195, 180) !important;
-    --checkbox-checked-color: rgb(85, 195, 180) !important;
-    --btn-share-hover-color: rgb(85, 195, 180) !important;
+  @media (prefers-color-scheme: dark) {
+    html:not([data-bs-theme]) {
+      --link-color: rgb(114, 224, 211) !important;
+      --toc-highlight: rgb(114, 224, 211) !important;
+      --checkbox-checked-color: rgb(114, 224, 211) !important;
+      --btn-share-hover-color: rgb(114, 224, 211) !important;
+    }
+  }
+  /* Light: explicitly set or system default before JS runs */
+  html[data-bs-theme=light] {
+    --link-color: rgb(27, 207, 185) !important;
+    --toc-highlight: rgb(27, 207, 185) !important;
+    --checkbox-checked-color: rgb(27, 207, 185) !important;
+    --btn-share-hover-color: rgb(27, 207, 185) !important;
   }
   @media (prefers-color-scheme: light) {
-    html:not([data-mode]) {
-      --link-color: rgb(85, 195, 180) !important;
-      --toc-highlight: rgb(85, 195, 180) !important;
+    html:not([data-bs-theme]) {
+      --link-color: rgb(8, 140, 125) !important;
+      --toc-highlight: rgb(8, 140, 125) !important;
+      --checkbox-checked-color: rgb(8, 140, 125) !important;
+      --btn-share-hover-color: rgb(8, 140, 125) !important;
     }
   }
 
@@ -114,7 +125,7 @@
   .sidebar-sub2-link .sidebar-sub-count { margin-left: 8px; }
 </style>
 
-{% if page.layout == 'project-page' or page.layout == 'page' %}
+{% if page.layout == 'page' %}
 <style>
   #panel-wrapper { display: none !important; }
   #main-wrapper > .row > .col-xl-9 { max-width: 100% !important; flex: 0 0 100% !important; }

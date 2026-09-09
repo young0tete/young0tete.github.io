@@ -1,0 +1,70 @@
+categories:
+  - Travel
+  - Diary
+  - Concert
+
+items:
+  - title: "🍊2026 제주 (TBA)"
+    date: "2026.08"
+    location: "Jeju"
+    category: "Travel"
+    images: []
+    description: ""
+
+  - title: "🇭🇰2026 홍콩 (Day 1) (TBA)"
+    date: "2026.02"
+    location: "Hongkong"
+    category: "Travel"
+    images: []
+    description: ""
+
+  - title: "Sample Photo 1"
+    date: "2026.07"
+    location: "Seoul"
+    category: "Diary"
+    description: |
+      샘플 설명입니다.
+      여러 줄로 작성할 수 있어요.
+    images:
+      - url: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxIDEiPjxyZWN0IGZpbGw9IndoaXRlIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIi8+PC9zdmc+"
+        date: "2026.07.12"
+        location: "Seoul Forest"
+        description: "첫 번째 이미지의 로컬 설명입니다."
+      - url: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxIDEiPjxyZWN0IGZpbGw9ImJsYWNrIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIi8+PC9zdmc+"
+        # 로컬 데이터 없음 → local 섹션 미표시
+
+  - title: "Sample Photo 2"
+    date: "2026.03"          # 월까지만 설정
+    location: "Tokyo"
+    category: "Travel"
+    images: []
+    description: "도쿄 여행 기록."
+
+  - title: "Sample Photo 3"
+    date: "2026.05.20"
+    # location 미설정
+    category: "Travel"
+    images: []
+    description: ""
+
+  - title: "Sample Photo 4"
+    date: "2026.01.01"
+    location: "Seoul"
+    category: "Diary"
+    images: []
+    description: ""
+
+# ── 항목 추가 형식 ───────────────────────────────────────────────
+# - title: "제목"
+#   date: "2026.09"          # "2026.09.01" 처럼 일까지도 가능, 생략 가능
+#   location: "장소"          # 생략 가능
+#   category: "Travel"
+#   description: "카드 전체 설명 (global)"
+#   images:
+#     - url: "/assets/images/gallery/photo1.jpg"
+#       date: "2026.09.01"   # 이 이미지에만 해당하는 날짜 (선택)
+#       location: "Spot A"   # 이 이미지에만 해당하는 장소 (선택)
+#       description: "이 사진에 대한 설명 (선택)"
+#     - url: "/assets/images/gallery/photo2.jpg"
+#       # 로컬 데이터 없으면 local 섹션 안 나옴
+#     - "/assets/images/gallery/photo3.jpg"  # 단순 URL 문자열도 허용

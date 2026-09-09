@@ -1,0 +1,21 @@
+{% comment %}Right-panel project pages list — only shown on layout: project-page{% endcomment %}
+{% if page.layout == 'project-page' or page.layout == 'project-tab' %}
+{% assign project_pages_list = site.pages | where: "layout", "project-page" | sort: "title" %}
+<section id="access-projects">
+  <h2 class="panel-heading">
+    <a href="{{ '/project_pages/' | relative_url }}">Projects</a>
+  </h2>
+  <ul class="content list-unstyled ps-0 pb-0 ms-1 mt-2 mb-0">
+    {% for proj in project_pages_list %}
+      {% assign proj_short = proj.title | split: ':' | first | strip %}
+      <li class="pproj-item">
+        <a href="{{ proj.permalink | relative_url }}"
+           class="pproj-link{% if page.url == proj.permalink %} active{% endif %}">
+          <i class="fas fa-rocket fa-fw me-1"></i>
+          <span class="pproj-name">{{ proj_short }}</span>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}

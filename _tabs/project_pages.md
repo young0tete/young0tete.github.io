@@ -1,4 +1,5 @@
 ---
+layout: project-tab
 title: Project Pages
 icon: fas fa-rocket
 order: 0

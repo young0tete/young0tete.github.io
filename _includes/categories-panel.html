@@ -1,0 +1,55 @@
+{% comment %}Right-panel categories section — shown only on blog-related pages{% endcomment %}
+{% assign _blog_layouts = "post,category,categories,tag,tags" | split: "," %}
+{% if _blog_layouts contains page.layout %}
+<section id="access-categories">
+  <h2 class="panel-heading">
+    <a href="{{ '/categories/' | relative_url }}">Categories</a>
+  </h2>
+  <ul class="content list-unstyled ps-0 pb-0 ms-1 mt-2 mb-0">
+    {% for cat_entry in site.data.category_order %}
+      {% assign category = cat_entry.name %}
+      {% assign cat_slug  = category | slugify %}
+      {% assign sub_cats  = "" | split: "" %}
+      {% for post in site.posts %}
+        {% if post.categories[0] == category and post.categories[1] %}
+          {% unless sub_cats contains post.categories[1] %}
+            {% assign sub_cats = sub_cats | push: post.categories[1] %}
+          {% endunless %}
+        {% endif %}
+      {% endfor %}
+      {% assign sub_cats = sub_cats | sort %}
+      {% if site.categories[category].size > 0 %}
+        <li class="pcat-item">
+          <a href="{{ '/categories/' | append: cat_slug | relative_url }}"
+             class="pcat-link{% if page.categories contains category %} active{% endif %}">
+            <i class="fas fa-folder-open fa-fw me-1"></i>
+            <span class="pcat-name">{{ category }}</span>
+            <span class="pcat-count">{{ site.categories[category].size }}</span>
+          </a>
+          {% if sub_cats.size > 0 %}
+            <ul class="list-unstyled pcat-sub-list">
+              {% for sub in sub_cats %}
+                {% assign sub_slug = sub | slugify %}
+                <li>
+                  <a href="{{ '/categories/' | append: sub_slug | relative_url }}"
+                     class="pcat-link pcat-sub-link{% if page.categories contains sub %} active{% endif %}">
+                    <i class="fas fa-folder fa-fw me-1"></i>
+                    <span class="pcat-name">{{ sub }}</span>
+                    <span class="pcat-count">{{ site.categories[sub].size }}</span>
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</section>
+
+<section id="access-tags">
+  <h2 class="panel-heading">
+    <a href="{{ '/tags/' | relative_url }}">Tags</a>
+  </h2>
+</section>
+{% endif %}
