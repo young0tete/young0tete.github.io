@@ -28,8 +28,8 @@
 
   var now   = new Date();
   var calY  = now.getFullYear();
-  var calM  = now.getMonth(); // 0-indexed
-  var selDate = null; // null | {type:'day'|'month', val:'YYYY.MM.DD'|'YYYY.MM'}
+  var calM  = now.getMonth(); /* 0-indexed */
+  var selDate = null; /* null | {type:'day'|'month', val:'YYYY.MM.DD'|'YYYY.MM'} */
 
   function pad2(n) { return n < 10 ? '0' + n : '' + n; }
   function monthStr(y, m) { return y + '.' + pad2(m + 1); }
@@ -78,7 +78,7 @@
     lbl.classList.toggle('selected', mSel);
 
     var cardDays  = cardDaysInMonth(calY, calM);
-    var firstDay  = new Date(calY, calM, 1).getDay(); // 0=Sun
+    var firstDay  = new Date(calY, calM, 1).getDay(); /* 0=Sun */
     var lastDay   = new Date(calY, calM + 1, 0).getDate();
 
     var body = document.getElementById('gcal-body');

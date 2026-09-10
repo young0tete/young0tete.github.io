@@ -637,7 +637,7 @@ window.galleryData = galleryData;
   window._galleryFilter = { cat: 'all', date: null };
   window._galleryApplyFilter = function() {
     var cat = window._galleryFilter.cat;
-    var df  = window._galleryFilter.date; // null | {type:'day'|'month', val:string}
+    var df  = window._galleryFilter.date; /* null | {type:'day'|'month', val:string} */
     var visible = 0;
     document.querySelectorAll('.gallery-card').forEach(function(c) {
       var catOk  = (cat === 'all' || c.getAttribute('data-category') === cat);
