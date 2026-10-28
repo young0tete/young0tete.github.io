@@ -18,34 +18,34 @@
         {% endif %}
       {% endfor %}
       {% assign sub_cats = sub_cats | sort %}
-      {% if site.categories[category].size > 0 %}
-        <li class="pcat-item">
-          <a href="{{ '/categories/' | append: cat_slug | relative_url }}"
-             class="pcat-link{% if page.categories contains category %} active{% endif %}">
-            <i class="fas fa-folder-open fa-fw me-1"></i>
-            <span class="pcat-name">{{ category }}</span>
-            <span class="pcat-count">{{ site.categories[category].size }}</span>
-          </a>
-          {% if sub_cats.size > 0 %}
-            <ul class="list-unstyled pcat-sub-list">
-              {% for sub in sub_cats %}
-                {% assign sub_slug = sub | slugify %}
-                <li>
-                  <a href="{{ '/categories/' | append: sub_slug | relative_url }}"
-                     class="pcat-link pcat-sub-link{% if page.categories contains sub %} active{% endif %}">
-                    <i class="fas fa-folder fa-fw me-1"></i>
-                    <span class="pcat-name">{{ sub }}</span>
-                    <span class="pcat-count">{{ site.categories[sub].size }}</span>
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
-          {% endif %}
-        </li>
-      {% endif %}
+      <li class="pcat-item">
+        <a href="{{ '/categories/' | append: cat_slug | relative_url }}"
+           class="pcat-link{% if page.categories contains category %} active{% endif %}">
+          <i class="fas fa-folder-open fa-fw me-1"></i>
+          <span class="pcat-name">{{ category }}</span>
+          <span class="pcat-count">{{ site.categories[category].size }}</span>
+        </a>
+        {% if sub_cats.size > 0 %}
+          <ul class="list-unstyled pcat-sub-list">
+            {% for sub in sub_cats %}
+              {% assign sub_slug = sub | slugify %}
+              <li>
+                <a href="{{ '/categories/' | append: sub_slug | relative_url }}"
+                   class="pcat-link pcat-sub-link{% if page.categories contains sub %} active{% endif %}">
+                  <i class="fas fa-folder fa-fw me-1"></i>
+                  <span class="pcat-name">{{ sub }}</span>
+                  <span class="pcat-count">{{ site.categories[sub].size }}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
     {% endfor %}
   </ul>
 </section>
+
+{% include notes-panel.html %}
 
 <section id="access-tags">
   <h2 class="panel-heading">

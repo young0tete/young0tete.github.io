@@ -30,6 +30,10 @@ groups:
       - text: "Long-LRM"
       - text: "LVT"
       - text: "GPS-Gaussian"
+      - text: "TokenGS"
+      - text: "TokenSplat"
+      - text: "C3G"
+      - text: "C4G"
 
   - name: "Scene Editing"
     items: []

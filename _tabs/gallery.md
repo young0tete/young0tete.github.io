@@ -111,6 +111,28 @@ img.emoji { height: 1em; width: 1em; vertical-align: -0.1em; }
   background-repeat: no-repeat;
 }
 
+/* YouTube play badge */
+.gallery-card-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.gallery-card-play i {
+  font-size: 1.8rem;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0.2rem;
+}
+
 /* Multi-image badge */
 .gallery-card-count {
   position: absolute;
@@ -378,18 +400,32 @@ img.emoji { height: 1em; width: 1em; vertical-align: -0.1em; }
   {% for item in sorted_gallery %}
   {% assign imgs = item.images | default: "" %}
   {% assign first_img = "" %}
+  {% assign first_yt  = "" %}
   {% if imgs != "" %}
     {% assign _fi = imgs[0] %}
-    {% if _fi.url %}{% assign first_img = _fi.url | strip %}
-    {% else %}{% assign first_img = _fi | default: "" | strip %}{% endif %}
+    {% if _fi.youtube %}
+      {% assign first_yt = _fi.youtube | strip %}
+    {% elsif _fi.url %}
+      {% assign first_img = _fi.url | strip %}
+    {% else %}
+      {% assign first_img = _fi | default: "" | strip %}
+    {% endif %}
   {% endif %}
   <div class="gallery-card" data-index="{{ forloop.index0 }}" data-category="{{ item.category }}" data-date="{{ item.date | default: '' }}">
     {% assign has_loc = false %}
     {% if item.location and item.location != "" %}{% assign has_loc = true %}{% endif %}
+    {% assign _ddate = item.date | default: '' %}
+    {% if _ddate contains '~' %}
+      {% assign _ddate_show = _ddate | split: '~' | first | strip | append: '~' %}
+    {% elsif _ddate.size > 10 %}
+      {% assign _ddate_show = _ddate | split: '-' | first | strip | append: '~' %}
+    {% else %}
+      {% assign _ddate_show = _ddate %}
+    {% endif %}
     <div class="gallery-card-header">
-      {% if item.date and item.date != "" %}
+      {% if _ddate != "" %}
       <span class="gallery-card-date{% unless has_loc %} no-sep{% endunless %}">
-        <i class="fas fa-calendar"></i>{{ item.date }}
+        <i class="fas fa-calendar"></i>{{ _ddate_show }}
       </span>
       {% endif %}
       {% if has_loc %}
@@ -398,9 +434,12 @@ img.emoji { height: 1em; width: 1em; vertical-align: -0.1em; }
       </span>
       {% endif %}
     </div>
-    <div class="gallery-card-thumb"{% if first_img != "" %} style="background-image:url('{{ first_img | relative_url }}');"{% endif %}>
+    <div class="gallery-card-thumb"{% if first_img != "" %} style="background-image:url('{{ first_img | relative_url }}');"{% elsif first_yt != "" %} style="background-image:url('https://img.youtube.com/vi/{{ first_yt }}/hqdefault.jpg');"{% endif %}>
       {% if imgs != "" and imgs.size > 1 %}
         <span class="gallery-card-count">1 / {{ imgs.size }}</span>
+      {% endif %}
+      {% if first_yt != "" %}
+        <span class="gallery-card-play"><i class="fas fa-play"></i></span>
       {% endif %}
     </div>
     <div class="gallery-card-title">{{ item.title }}</div>
@@ -465,16 +504,30 @@ var galleryData = [
     var imgs = [];
     {% if item.images %}
       {% for img in item.images %}
-        {% comment %} 이미지가 문자열(URL만)이면 img.url=nil → default로 img 자체 사용 {% endcomment %}
-        {% assign img_url = img.url | default: img %}
-        {% assign img_url_s = img_url | strip %}
-        {% if img_url_s != "" %}
+        {% if img.youtube %}
+          {% assign img_yt = img.youtube | strip %}
+          {% if img_yt != "" %}
         imgs.push({
-          url:         {{ img_url_s | relative_url | jsonify }},
+          url:         "",
+          youtube:     {{ img_yt | jsonify }},
           date:        {{ img.date        | default: "" | jsonify }},
           location:    {{ img.location    | default: "" | jsonify }},
           description: {{ img.description | default: "" | jsonify }}
         });
+          {% endif %}
+        {% else %}
+          {% comment %} 이미지가 문자열(URL만)이면 img.url=nil → default로 img 자체 사용 {% endcomment %}
+          {% assign img_url = img.url | default: img %}
+          {% assign img_url_s = img_url | strip %}
+          {% if img_url_s != "" %}
+        imgs.push({
+          url:         {{ img_url_s | relative_url | jsonify }},
+          youtube:     "",
+          date:        {{ img.date        | default: "" | jsonify }},
+          location:    {{ img.location    | default: "" | jsonify }},
+          description: {{ img.description | default: "" | jsonify }}
+        });
+          {% endif %}
         {% endif %}
       {% endfor %}
     {% endif %}
@@ -521,6 +574,9 @@ window.galleryData = galleryData;
   var isOpen    = false;
 
   function clearPanel() {
+    /* YouTube iframe 재생 중단 후 제거 */
+    var yt = imgPanel.querySelector('iframe.modal-dyn-img');
+    if (yt) yt.src = '';
     var old = imgPanel.querySelector('.modal-dyn-img, .modal-dyn-placeholder');
     while (old) { imgPanel.removeChild(old); old = imgPanel.querySelector('.modal-dyn-img, .modal-dyn-placeholder'); }
   }
@@ -545,8 +601,17 @@ window.galleryData = galleryData;
     curIdx = idx;
     clearPanel();
     var imgObj = curImages[idx] || {};
-    var src = (imgObj.url || '').trim();
-    if (src) {
+    var src  = (imgObj.url     || '').trim();
+    var ytId = (imgObj.youtube || '').trim();
+    if (ytId) {
+      var iframe = document.createElement('iframe');
+      iframe.className = 'modal-dyn-img';
+      iframe.style.cssText = 'width:100%;height:100%;border:none;';
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + ytId + '?rel=0';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen', '');
+      imgPanel.insertBefore(iframe, imgPanel.firstChild);
+    } else if (src) {
       var img = document.createElement('img');
       img.className = 'modal-dyn-img';
       img.src = src;
@@ -633,6 +698,40 @@ window.galleryData = galleryData;
   /* 카드 제목 이모지 렌더링 */
   document.querySelectorAll('.gallery-card-title').forEach(function (el) { twparse(el); });
 
+  /* ── 날짜 범위 파싱 유틸 ── */
+  function _gpad2(n) { return n < 10 ? '0' + n : '' + n; }
+  function _normD(s) {
+    /* "YYYY.M.D" → "YYYY.MM.DD", "YYYY.M" → "YYYY.MM" */
+    if (!s) return '';
+    var p = s.trim().split('.');
+    if (p.length < 2) return s.trim();
+    var r = p[0] + '.' + _gpad2(+p[1]);
+    if (p.length >= 3) r += '.' + _gpad2(+p[2]);
+    return r;
+  }
+  function _parseRange(raw) {
+    /* "YYYY.MM.DD~YYYY.MM.DD" 또는 "-" 구분자 지원 */
+    if (!raw) return { s: '', e: '' };
+    var i = raw.indexOf('~');
+    if (i < 0) i = raw.indexOf('-', 5); /* "." 구분 날짜는 "-" 미사용이므로 안전 */
+    if (i >= 0) return { s: _normD(raw.slice(0, i)), e: _normD(raw.slice(i + 1)) };
+    return { s: _normD(raw), e: _normD(raw) };
+  }
+  function _expandToDay(s) {
+    /* "YYYY.MM" → "YYYY.MM.01" / "YYYY.MM.DD" → 그대로 */
+    if (!s) return '';
+    return s.length === 7 ? s + '.01' : s;
+  }
+  function _expandEndToDay(s) {
+    /* "YYYY.MM" → "YYYY.MM.마지막날" */
+    if (!s) return '';
+    if (s.length === 7) {
+      var p = s.split('.');
+      return s + '.' + _gpad2(new Date(+p[0], +p[1], 0).getDate());
+    }
+    return s;
+  }
+
   /* ── 공통 필터 상태 (카테고리 + 날짜) ── */
   window._galleryFilter = { cat: 'all', date: null };
   window._galleryApplyFilter = function() {
@@ -644,11 +743,17 @@ window.galleryData = galleryData;
       var dateOk = true;
       if (df) {
         var cd = c.getAttribute('data-date') || '';
+        var rng = _parseRange(cd);
+        var rs = _expandToDay(rng.s);
+        var re = _expandEndToDay(rng.e || rng.s);
         if (df.type === 'day') {
-          dateOk = cd === df.val;
+          dateOk = df.val >= rs && df.val <= re;
         } else {
-          /* month: 'YYYY.MM' 또는 'YYYY.MM.DD' 모두 허용 */
-          dateOk = cd === df.val || cd.indexOf(df.val + '.') === 0;
+          /* month: 필터 월과 카드 기간이 겹치는지 확인 */
+          var fp = df.val.split('.');
+          var mFirst = df.val + '.01';
+          var mLast  = df.val + '.' + _gpad2(new Date(+fp[0], +fp[1], 0).getDate());
+          dateOk = rs <= mLast && re >= mFirst;
         }
       }
       var show = catOk && dateOk;

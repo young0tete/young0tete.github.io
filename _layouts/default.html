@@ -38,7 +38,8 @@ layout: compress
               {% include gallery-panel.html lang=lang %}
               {% include projects-panel.html lang=lang %}
               {% include categories-panel.html lang=lang %}
-              {% unless page.layout == 'project-page' or page.layout == 'project-tab' or page.layout == 'gallery-tab' %}
+              {% assign _no_update_layouts = "project-page,project-tab,gallery-tab,post,category,categories,tag,tags" | split: "," %}
+              {% unless _no_update_layouts contains page.layout or page.collection == 'tabs' %}
                 {% include_cached update-list.html lang=lang %}
               {% endunless %}
             </div>

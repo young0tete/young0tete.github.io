@@ -4,16 +4,26 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!memos.length) return;
 
   memos.forEach(function (memo) {
+    var raw = memo.getAttribute('data-memo');
+    if (raw) memo.setAttribute('data-memo', raw.replace(/\\n/g, '\n'));
+
     memo.addEventListener('click', function (e) {
       e.stopPropagation();
-      var isActive = memo.classList.contains('active');
-      memos.forEach(function (m) { m.classList.remove('active'); });
-      if (!isActive) memo.classList.add('active');
+      var existing = memo.querySelector('.memo-tooltip');
+      if (existing) { existing.remove(); return; }
+
+      document.querySelectorAll('.memo-tooltip').forEach(function (t) { t.remove(); });
+
+      var tip = document.createElement('div');
+      tip.className = 'memo-tooltip';
+      tip.textContent = memo.getAttribute('data-memo');
+      tip.addEventListener('click', function (e) { e.stopPropagation(); });
+      memo.appendChild(tip);
     });
   });
 
   document.addEventListener('click', function () {
-    memos.forEach(function (m) { m.classList.remove('active'); });
+    document.querySelectorAll('.memo-tooltip').forEach(function (t) { t.remove(); });
   });
 });
 </script>

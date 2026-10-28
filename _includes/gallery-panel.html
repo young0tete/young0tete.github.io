@@ -35,21 +35,55 @@
   function monthStr(y, m) { return y + '.' + pad2(m + 1); }
   function dayStr(y, m, d) { return y + '.' + pad2(m + 1) + '.' + pad2(d); }
 
-  /* 이번 달에 카드가 있는 day 번호 집합 */
+  /* 날짜 범위 파싱 유틸 */
+  function _normD(s) {
+    if (!s) return '';
+    var p = s.trim().split('.');
+    if (p.length < 2) return s.trim();
+    var r = p[0] + '.' + pad2(+p[1]);
+    if (p.length >= 3) r += '.' + pad2(+p[2]);
+    return r;
+  }
+  function _parseRange(raw) {
+    if (!raw) return { s: '', e: '' };
+    var i = raw.indexOf('~');
+    if (i < 0) i = raw.indexOf('-', 5);
+    if (i >= 0) return { s: _normD(raw.slice(0, i)), e: _normD(raw.slice(i + 1)) };
+    return { s: _normD(raw), e: _normD(raw) };
+  }
+  function _toFullDay(s, last) {
+    /* "YYYY.MM" → first or last day of month */
+    if (!s || s.length !== 7) return s;
+    var p = s.split('.');
+    return last ? s + '.' + pad2(new Date(+p[0], +p[1], 0).getDate()) : s + '.01';
+  }
+
+  /* 이번 달에 카드가 있는 day 번호 집합 (범위 지원) */
   function cardDaysInMonth(y, m) {
     var set = {};
-    _gcalDates.forEach(function(d) {
-      var p = d.split('.');
-      if (p.length >= 3 && +p[0] === y && +p[1] - 1 === m) set[+p[2]] = true;
+    var lastD = new Date(y, m + 1, 0).getDate();
+    _gcalDates.forEach(function(raw) {
+      var r = _parseRange(raw);
+      var rs = _toFullDay(r.s, false);
+      var re = _toFullDay(r.e || r.s, true);
+      if (!rs) return;
+      for (var d = 1; d <= lastD; d++) {
+        var ds = dayStr(y, m, d);
+        if (ds >= rs && ds <= re) set[d] = true;
+      }
     });
     return set;
   }
 
-  /* 이번 달에 카드가 하나라도 있는지 (month-level 포함) */
+  /* 이번 달에 카드가 하나라도 있는지 (month-level 포함, 범위 지원) */
   function monthHasCards(y, m) {
-    return _gcalDates.some(function(d) {
-      var p = d.split('.');
-      return p.length >= 2 && +p[0] === y && +p[1] - 1 === m;
+    var mFirst = dayStr(y, m, 1);
+    var mLast  = dayStr(y, m, new Date(y, m + 1, 0).getDate());
+    return _gcalDates.some(function(raw) {
+      var r = _parseRange(raw);
+      var rs = _toFullDay(r.s, false);
+      var re = _toFullDay(r.e || r.s, true);
+      return rs && rs <= mLast && re >= mFirst;
     });
   }
 

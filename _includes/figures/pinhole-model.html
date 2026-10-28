@@ -1,0 +1,34 @@
+<div class="post-figure" markdown="0">
+<svg viewBox="0 0 640 305" role="img" aria-label="Pinhole camera model: real image plane behind the pinhole, virtual image plane in front" style="width:100%;max-width:640px;height:auto;display:block;margin:0 auto;color:var(--text-color);font-family:inherit;">
+<defs>
+<marker id="ph-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
+<marker id="ph-arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e05a5a"/></marker>
+<marker id="ph-arr-mint" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1aa391"/></marker>
+</defs>
+<line x1="20" y1="150" x2="628" y2="150" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.5" marker-end="url(#ph-arr)"/>
+<text x="628" y="140" font-size="13" fill="currentColor" text-anchor="end">Z (optical axis)</text>
+<line x1="300" y1="40" x2="300" y2="143" stroke="currentColor" stroke-width="4" opacity="0.3"/>
+<line x1="300" y1="157" x2="300" y2="260" stroke="currentColor" stroke-width="4" opacity="0.3"/>
+<line x1="180" y1="60" x2="180" y2="240" stroke="#e05a5a" stroke-width="2.5"/>
+<text x="180" y="52" font-size="13" fill="#e05a5a" text-anchor="middle">실제 이미지 평면</text>
+<line x1="420" y1="60" x2="420" y2="240" stroke="#1aa391" stroke-width="2.5" stroke-dasharray="7 5"/>
+<text x="420" y="52" font-size="13" fill="#1aa391" text-anchor="middle">Virtual image plane</text>
+<line x1="580" y1="260" x2="180" y2="103" stroke="currentColor" stroke-width="1.2" opacity="0.75"/>
+<line x1="580" y1="150" x2="580" y2="256" stroke="currentColor" stroke-width="2.5" marker-end="url(#ph-arr)"/>
+<text x="590" y="210" font-size="13" fill="currentColor">물체</text>
+<line x1="180" y1="150" x2="180" y2="107" stroke="#e05a5a" stroke-width="3" marker-end="url(#ph-arr-red)"/>
+<text x="172" y="95" font-size="12" fill="#e05a5a" text-anchor="end">뒤집힌 상</text>
+<line x1="420" y1="150" x2="420" y2="193" stroke="#1aa391" stroke-width="3" marker-end="url(#ph-arr-mint)"/>
+<text x="429" y="174" font-size="12" fill="#1aa391">뒤집히지 않은 상</text>
+<circle cx="300" cy="150" r="5" fill="currentColor"/>
+<text x="309" y="124" font-size="12" fill="currentColor">Optical center</text>
+<text x="309" y="139" font-size="12" fill="currentColor" opacity="0.7">(pinhole)</text>
+<circle cx="420" cy="150" r="5" fill="#1aa391"/>
+<text x="429" y="140" font-size="12" fill="#1aa391">Principal point</text>
+<line x1="180" y1="278" x2="300" y2="278" stroke="currentColor" stroke-width="1" marker-start="url(#ph-arr)" marker-end="url(#ph-arr)"/>
+<line x1="300" y1="278" x2="420" y2="278" stroke="currentColor" stroke-width="1" marker-start="url(#ph-arr)" marker-end="url(#ph-arr)"/>
+<text x="240" y="296" font-size="14" fill="currentColor" text-anchor="middle" font-style="italic">f</text>
+<text x="360" y="296" font-size="14" fill="currentColor" text-anchor="middle" font-style="italic">f</text>
+</svg>
+<p class="post-figure-caption">Pinhole camera model. 구멍 뒤의 실제 이미지 평면에는 상이 뒤집혀 맺히고, 구멍 앞 같은 거리에 둔 virtual image plane에는 같은 크기로 바로 선 상이 맺힘. Optical center는 구멍 위치의 한 점이고, principal point는 optical axis가 이미지 평면과 만나는 점</p>
+</div>

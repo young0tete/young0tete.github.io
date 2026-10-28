@@ -55,6 +55,11 @@
     align-items: center;
     color: var(--label-color);
   }
+  .navbox-group a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .navbox-group a:hover { text-decoration: underline; }
   .navbox-items {
     padding: 5px 10px;
     color: var(--text-color);
@@ -69,6 +74,9 @@
   .navbox-items .navbox-sep {
     margin: 0 4px;
     opacity: 0.4;
+  }
+  .navbox-items .navbox-paren-open {
+    margin-left: 4px;
   }
   .navbox-subgroup {
     display: flex;
@@ -107,7 +115,7 @@
     <div class="navbox-body">
       {% for group in navbox.groups %}
       <div class="navbox-row">
-        <div class="navbox-group">{{ group.name }}</div>
+        <div class="navbox-group">{% if group.url %}<a href="{{ group.url }}">{{ group.name }}</a>{% else %}{{ group.name }}{% endif %}</div>
         <div class="navbox-items">
           {% if group.subgroups and group.subgroups.size > 0 %}
             {% for subgroup in group.subgroups %}
@@ -130,16 +138,22 @@
               </div>
             {% endfor %}
           {% elsif group.items and group.items.size > 0 %}
+            {% assign need_sep = false %}
             {% for item in group.items %}
-              {% if item.break %}
-                <br>
+              {% if item.paren_open %}
+                <span class="navbox-paren-open">(</span>{% assign need_sep = false %}
+              {% elsif item.paren_close %}
+                <span>)</span>{% assign need_sep = true %}
+              {% elsif item.break %}
+                <br>{% assign need_sep = false %}
               {% else %}
-                {% unless forloop.first %}<span class="navbox-sep">·</span>{% endunless %}
+                {% if need_sep %}<span class="navbox-sep">·</span>{% endif %}
                 {% if item.url %}
                   <a href="{{ item.url }}">{{ item.text }}</a>
                 {% else %}
                   {{ item.text }}
                 {% endif %}
+                {% assign need_sep = true %}
               {% endif %}
             {% endfor %}
           {% else %}

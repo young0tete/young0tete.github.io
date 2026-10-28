@@ -1,0 +1,129 @@
+{% comment %}Right-panel calendar for blog pages — posts by date{% endcomment %}
+<section id="notes-cal-section">
+  <div class="gcal-header">
+    <button class="gcal-nav-btn" id="ncal-prev">&#8249;</button>
+    <button class="gcal-month-btn" id="ncal-month-lbl"></button>
+    <button class="gcal-nav-btn" id="ncal-next">&#8250;</button>
+  </div>
+  <table class="gcal-grid">
+    <thead>
+      <tr>
+        <th class="gcal-th-sun">일</th>
+        <th>월</th><th>화</th><th>수</th><th>목</th><th>금</th>
+        <th class="gcal-th-sat">토</th>
+      </tr>
+    </thead>
+    <tbody id="ncal-body"></tbody>
+  </table>
+  <ul class="ncal-list" id="ncal-list"></ul>
+</section>
+
+<script>
+(function() {
+  /* Jekyll 포스트 날짜/링크/제목 (hidden 제외) */
+  var _nposts = [
+    {% for post in site.posts %}{% unless post.hidden %}{"d":{{ post.date | date: '%Y.%m.%d' | jsonify }},"u":{{ post.url | relative_url | jsonify }},"t":{{ post.title | jsonify }}},{% endunless %}{% endfor %}
+  ];
+
+  var now    = new Date();
+  var calY   = now.getFullYear();
+  var calM   = now.getMonth(); /* 0-indexed */
+  var selDay = null;           /* null | 'YYYY.MM.DD' */
+
+  function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+  function dayStr(y, m, d) { return y + '.' + pad2(m + 1) + '.' + pad2(d); }
+  function titleOf(p) { return (typeof p.t === 'string') ? p.t : (p.t && p.t[0]) || ''; }
+
+  /* 이번 달에 포스트가 있는 day 번호 집합 */
+  function postDaysInMonth(y, m) {
+    var pre = y + '.' + pad2(m + 1) + '.';
+    var set = {};
+    _nposts.forEach(function(p) {
+      if (p.d.indexOf(pre) === 0) set[+p.d.slice(8)] = true;
+    });
+    return set;
+  }
+
+  function renderList() {
+    var ul = document.getElementById('ncal-list');
+    if (!ul) return;
+    ul.innerHTML = '';
+    if (!selDay) return;
+    _nposts.forEach(function(p) {
+      if (p.d !== selDay) return;
+      var li = document.createElement('li');
+      var a  = document.createElement('a');
+      a.href = p.u;
+      a.textContent = titleOf(p);
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+  }
+
+  function selectDay(ds) {
+    selDay = (selDay === ds) ? null : ds;
+    render();
+  }
+
+  function render() {
+    var lbl = document.getElementById('ncal-month-lbl');
+    if (!lbl) return;
+    lbl.textContent = calY + '. ' + pad2(calM + 1);
+
+    var postDays = postDaysInMonth(calY, calM);
+    var firstDay = new Date(calY, calM, 1).getDay(); /* 0=Sun */
+    var lastDay  = new Date(calY, calM + 1, 0).getDate();
+
+    var body = document.getElementById('ncal-body');
+    if (!body) return;
+    body.innerHTML = '';
+    var day = 1;
+
+    for (var row = 0; row < 6; row++) {
+      if (day > lastDay) break;
+      var tr = document.createElement('tr');
+      for (var col = 0; col < 7; col++) {
+        var td = document.createElement('td');
+        td.className = 'gcal-day';
+        if (col === 0) td.classList.add('gcal-sun');
+        if (col === 6) td.classList.add('gcal-sat');
+
+        var empty = (row === 0 && col < firstDay) || day > lastDay;
+        if (!empty) {
+          td.textContent = day;
+          if (postDays[day]) {
+            td.classList.add('has-card');
+            var ds = dayStr(calY, calM, day);
+            (function(s, cell) {
+              cell.addEventListener('click', function() { selectDay(s); });
+            })(ds, td);
+            if (selDay === ds) td.classList.add('selected');
+          }
+          day++;
+        }
+        tr.appendChild(td);
+      }
+      body.appendChild(tr);
+    }
+
+    renderList();
+  }
+
+  var _prev = document.getElementById('ncal-prev');
+  var _next = document.getElementById('ncal-next');
+
+  if (_prev) _prev.addEventListener('click', function() {
+    if (--calM < 0) { calM = 11; calY--; }
+    selDay = null;
+    render();
+  });
+  if (_next) _next.addEventListener('click', function() {
+    if (++calM > 11) { calM = 0; calY++; }
+    selDay = null;
+    render();
+  });
+
+  /* 위 HTML은 이미 DOM에 있으므로 즉시 render */
+  render();
+})();
+</script>

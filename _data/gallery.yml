@@ -33,13 +33,6 @@ items:
       - url: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxIDEiPjxyZWN0IGZpbGw9ImJsYWNrIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIi8+PC9zdmc+"
         # 로컬 데이터 없음 → local 섹션 미표시
 
-  - title: "Sample Photo 2"
-    date: "2026.03"          # 월까지만 설정
-    location: "Tokyo"
-    category: "Travel"
-    images: []
-    description: "도쿄 여행 기록."
-
   - title: "Sample Photo 3"
     date: "2026.05.20"
     # location 미설정
@@ -47,10 +40,38 @@ items:
     images: []
     description: ""
 
-  - title: "Sample Photo 4"
-    date: "2026.01.01"
+  - title: "🎸뮤즈 콘서트 (TBA)"
+    date: "2025.09.27"
+    location: "Incheon"
+    category: "Concert"
+    images: []
+    description: ""
+
+  - title: "🎤두아 리파 콘서트 (TBA)"
+    date: "2024.06.10"
     location: "Seoul"
-    category: "Diary"
+    category: "Concert"
+    images: []
+    description: ""
+
+  - title: "🎸마룬5 콘서트 (TBA)"
+    date: "2024.03.08"
+    location: "Incheon"
+    category: "Concert"
+    images: []
+    description: ""
+
+  - title: "🎷검정치마 콘서트 (TBA)"
+    date: "2023.07.07"
+    location: "Seoul"
+    category: "Concert"
+    images: []
+    description: ""
+
+  - title: "💦흠뻑쇼 2023 (TBA)"
+    date: "2023.07.02"
+    location: "Seoul"
+    category: "Concert"
     images: []
     description: ""
 

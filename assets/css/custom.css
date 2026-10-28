@@ -1,5 +1,6 @@
 /* ── Gallery calendar panel ───────────────────────────────────────── */
-#gallery-cal-section {
+#gallery-cal-section,
+#notes-cal-section {
   margin-bottom: 1.5rem;
   border: 1px solid var(--main-border-color);
   border-radius: 10px;
@@ -96,6 +97,34 @@
   color: var(--link-color) !important;
   text-decoration: underline;
   font-weight: 800;
+}
+
+/* Notes calendar: selected day's post list */
+.ncal-list {
+  list-style: none;
+  margin: 0.6rem 0 0;
+  padding: 0.55rem 0 0;
+  border-top: 1px solid var(--main-border-color);
+}
+.ncal-list:empty {
+  border-top: none;
+  margin: 0;
+  padding: 0;
+}
+.ncal-list li {
+  margin-bottom: 0.3rem;
+  line-height: 1.45;
+}
+.ncal-list li:last-child { margin-bottom: 0; }
+.ncal-list a {
+  font-size: 0.8rem;
+  color: var(--text-muted-color);
+  text-decoration: none;
+  display: block;
+}
+.ncal-list a:hover {
+  color: var(--link-color) !important;
+  text-decoration: underline;
 }
 
 /* ── End gallery calendar ─────────────────────────────────────────── */
@@ -352,15 +381,25 @@
   margin: 0;
 }
 
+/* Inline SVG figures in posts */
+.post-figure {
+  margin: 1.5rem 0;
+}
+.post-figure-caption {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted-color);
+  margin: 0.5rem 0 0;
+}
+
 /* Memo tooltip */
 .memo {
   position: relative;
   border-bottom: 2px solid var(--link-color);
-  cursor: help;
+  cursor: pointer;
 }
 
-.memo::after {
-  content: attr(data-memo);
+.memo-tooltip {
   position: absolute;
   bottom: calc(100% + 10px);
   left: 50%;
@@ -371,33 +410,21 @@
   border-radius: 6px;
   font-size: 0.82rem;
   line-height: 1.55;
+  white-space: pre-line;
   width: max-content;
-  max-width: 220px;
-  white-space: normal;
+  max-width: 2500px;
   z-index: 200;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.15s ease;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+  cursor: text;
+  user-select: text;
 }
 
-.memo::before {
+.memo-tooltip::before {
   content: '';
   position: absolute;
-  bottom: calc(100% + 4px);
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
   border: 5px solid transparent;
   border-top-color: rgba(40, 40, 40, 0.95);
-  z-index: 200;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.15s ease;
-}
-
-.memo:hover::after,
-.memo:hover::before,
-.memo.active::after,
-.memo.active::before {
-  opacity: 1;
 }
