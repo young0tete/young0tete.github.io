@@ -27,7 +27,7 @@ mermaid: false
   - <span style="color:red">**Optical center**</span> (camera center): 구멍의 위치. 카메라 좌표계의 원점
   - <span style="color:red">**Optical axis**</span> (principal axis): 원점에서 이미지 평면에 수직으로 뻗은 축 = $Z$축
   - <span style="color:red">**Focal length**</span> $f$: optical center에서 이미지 평면까지의 거리
-  - <span style="color:red">**Principal point**</span>: optical axis가 이미지 평면과 만나는 점 ([Intrinsics 편](/posts/pinhole-intrinsics/)에서 다시 다룸)
+  - <span style="color:red">**Principal point**</span>: optical axis가 이미지 평면과 만나는 점 (Intrinsics 편에서 다시 다룸)
 
 
 ## 2. Perspective Projection
@@ -87,7 +87,7 @@ mermaid: false
     - 월드 → 카메라 → 이미지 평면 → 픽셀의 중간 단계가 전부 행렬이 됨 → 곱해서 **행렬 하나로 합칠 수 있음**
     - 나눗셈은 끝에서 딱 한 번만 하면 됨
 - 덤으로 얻는 것들
-  - 평행이동(translation)도 행렬곱으로 표현 가능 → [Extrinsics 편](/posts/pinhole-extrinsics/)에서 $[R \mid t]$를 쓰는 이유
+  - 평행이동(translation)도 행렬곱으로 표현 가능 → Extrinsics 편에서 $[R \mid t]$를 쓰는 이유
   - 여러 변환을 행렬곱으로 차례로 합성할 수 있음
   - $\tilde{w} = 0$인 점 = <span style="color:red">**무한원점**</span> (point at infinity), 즉 3D의 **방향**
     - 방향 $(d_X, d_Y, d_Z, 0)$을 투영하면 $(f d_X / d_Z,\ f d_Y / d_Z)$ → 이게 그 방향 직선들의 소실점
@@ -107,5 +107,5 @@ mermaid: false
   - $[I \mid 0]$: 3D 점을 그대로 두고 동차좌표의 마지막 1만 버림 → 점이 **이미 카메라 좌표계에 있다고 가정**한 것
   - $\mathrm{diag}(f, f, 1)$: 초점거리만큼 스케일
 - 아직 남은 한계 두 가지
-  - 결과 $(x, y)$는 이미지 평면 위의 **물리 좌표**(mm, principal point가 원점)이지 **픽셀 좌표가 아님** → $\mathrm{diag}(f, f, 1)$이 픽셀 변환까지 포함한 $K$로 확장됨 → **[Intrinsics 편](/posts/pinhole-intrinsics/)**
-  - 점이 **카메라 좌표계** 기준이어야 함 → 월드 좌표에서 카메라 좌표로 옮기는 $[R \mid t]$가 $[I \mid 0]$ 자리에 들어감 → **[Extrinsics 편](/posts/pinhole-extrinsics/)**
+  - 결과 $(x, y)$는 이미지 평면 위의 **물리 좌표**(mm, principal point가 원점)이지 **픽셀 좌표가 아님** → $\mathrm{diag}(f, f, 1)$이 픽셀 변환까지 포함한 $K$로 확장됨 → **Intrinsics 편**
+  - 점이 **카메라 좌표계** 기준이어야 함 → 월드 좌표에서 카메라 좌표로 옮기는 $[R \mid t]$가 $[I \mid 0]$ 자리에 들어감 → **Extrinsics 편**

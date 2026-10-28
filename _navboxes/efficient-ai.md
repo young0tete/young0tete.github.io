@@ -1,7 +1,7 @@
 ---
 title: "Efficient AI Navigator"
 category: "Efficient AI"
-link: "/posts/Efficient-AI-Navigator/"
+link: "/categories/efficient-ai/"
 color: "rgb(114, 224, 211)"
 groups:
   - name: "모델 압축"
